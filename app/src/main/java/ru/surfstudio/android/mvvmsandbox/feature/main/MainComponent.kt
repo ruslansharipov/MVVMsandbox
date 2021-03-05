@@ -8,8 +8,7 @@ import ru.surfstudio.android.mvvmsandbox.feature.di.ScreenScope
 @Component(
     dependencies = [ActivityComponent::class],
     modules = [
-        MainActivityModule::class,
-        MainActivityViewModelModule::class
+        MainActivityModule::class
     ]
 )
 interface MainComponent {
