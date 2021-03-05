@@ -8,21 +8,15 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import ru.surfstudio.android.mvvmsandbox.feature.di.ViewModelKey
+import ru.surfstudio.android.mvvmsandbox.view_model.DaggerViewModelFactory
 
 @Module
-class MainActivityModule(
-    private val viewModelStore: ViewModelStore
-) {
+class MainActivityModule {
 
-//    @Provides
-//    fun provideViewModelStore(): ViewModelStore {
-//        return viewModelStore
-//    }
-
-//    @Provides
-//    fun provideViewModel(factory: ViewModelProvider.Factory) : MainViewModel {
-//        return ViewModelProvider(viewModelStore, factory).get(MainViewModel::class.java)
-//    }
+    @Provides
+    fun provideViewModel(viewModelStore: ViewModelStore, factory: DaggerViewModelFactory) : MainViewModel {
+        return ViewModelProvider(viewModelStore, factory).get(MainViewModel::class.java)
+    }
 
 }
 
