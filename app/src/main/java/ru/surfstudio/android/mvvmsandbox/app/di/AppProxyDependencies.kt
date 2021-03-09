@@ -1,6 +1,7 @@
 package ru.surfstudio.android.mvvmsandbox.app.di
 
 import android.content.Context
+import ru.surfstudio.android.mvvmsandbox.interaction.CatalogInteractor
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import ru.surfstudio.android.navigation.provider.ActivityNavigationProvider
 
@@ -14,4 +15,6 @@ interface AppProxyDependencies {
 
     fun commandExecutor(): AppCommandExecutor
     fun activityNavigationProvider(): ActivityNavigationProvider
+
+    fun catalogInteractor(): CatalogInteractor
 }

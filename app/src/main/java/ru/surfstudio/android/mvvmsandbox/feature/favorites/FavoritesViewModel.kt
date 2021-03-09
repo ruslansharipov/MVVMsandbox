@@ -13,4 +13,6 @@ class FavoritesViewModel @Inject constructor(
 
 }
 
-interface IFavoritesViewModel
+interface IFavoritesViewModel {
+
+}
