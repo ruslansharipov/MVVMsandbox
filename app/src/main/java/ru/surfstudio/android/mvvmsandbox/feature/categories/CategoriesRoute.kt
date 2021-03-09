@@ -1,11 +1,11 @@
-package ru.surfstudio.android.mvvmsandbox.feature.favorites
+package ru.surfstudio.android.mvvmsandbox.feature.categories
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import ru.surfstudio.android.navigation.route.Route
 import ru.surfstudio.android.navigation.route.fragment.FragmentRoute
 
-class FavoritesRoute(
+class CategoriesRoute(
         val someArgs: String
 ) : FragmentRoute() {
 

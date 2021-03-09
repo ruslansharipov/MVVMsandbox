@@ -1,18 +1,18 @@
-package ru.surfstudio.android.mvvmsandbox.feature.favorites
+package ru.surfstudio.android.mvvmsandbox.feature.categories
 
 import androidx.lifecycle.ViewModel
 import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import javax.inject.Inject
 
-class FavoritesViewModel @Inject constructor(
+class CategoriesViewModel @Inject constructor(
         override val navCommandExecutor: AppCommandExecutor
-): ViewModel(), NavigationViewModel, IFavoritesViewModel {
+): ViewModel(), NavigationViewModel, ICategoriesViewModel {
 
 
 
 }
 
-interface IFavoritesViewModel {
+interface ICategoriesViewModel {
 
 }

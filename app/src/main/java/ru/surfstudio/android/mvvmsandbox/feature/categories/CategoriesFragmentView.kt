@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.feature.favorites
+package ru.surfstudio.android.mvvmsandbox.feature.categories
 
 import android.os.Bundle
 import android.util.Log
@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import ru.surfstudio.android.mvvmsandbox.R
 import javax.inject.Inject
 
-class FavoritesFragmentView: Fragment() {
+class CategoriesFragmentView: Fragment() {
 
     @Inject
-    lateinit var viewModel: IFavoritesViewModel
+    lateinit var viewModel: ICategoriesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +24,7 @@ class FavoritesFragmentView: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FavoritesScreenConfigurator().inject(this)
+        CategoriesScreenConfigurator().inject(this)
         Log.d("FavoritesFragmentView", viewModel.hashCode().toString())
     }
 }

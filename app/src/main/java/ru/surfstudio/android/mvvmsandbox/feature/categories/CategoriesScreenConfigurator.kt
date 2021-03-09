@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.feature.favorites
+package ru.surfstudio.android.mvvmsandbox.feature.categories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -18,53 +18,53 @@ import ru.surfstudio.android.mvvmsandbox.feature.di.ViewModelKey
 import ru.surfstudio.android.mvvmsandbox.view_model.DaggerViewModelFactory
 import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule
 
-internal class FavoritesScreenConfigurator {
+internal class CategoriesScreenConfigurator {
 
     @ScreenScope
     @Component(
             dependencies = [ActivityComponent::class],
             modules = [
-                FavoritesActivityModule::class,
+                CategoriesModule::class,
                 ViewModelFactoryModule::class,
-                FavoritesActivityViewModelModule::class
+                CategoriesViewModelModule::class
             ]
     )
-    internal interface FavoritesComponent {
-        fun inject(view: FavoritesFragmentView)
+    internal interface CategoriesComponent {
+        fun inject(view: CategoriesFragmentView)
     }
 
     @Module
-    internal class FavoritesActivityModule(route: FavoritesRoute) : CustomScreenModule<FavoritesRoute>(route) {
+    internal class CategoriesModule(route: CategoriesRoute) : CustomScreenModule<CategoriesRoute>(route) {
 
         @Provides
         fun provideViewModel(
                 viewModelStore: ViewModelStore,
                 factory: DaggerViewModelFactory,
-                route: FavoritesRoute
-        ): IFavoritesViewModel {
-            return ViewModelProvider(viewModelStore, factory).get(route.getId(), FavoritesViewModel::class.java)
+                route: CategoriesRoute
+        ): ICategoriesViewModel {
+            return ViewModelProvider(viewModelStore, factory).get(route.getId(), CategoriesViewModel::class.java)
         }
     }
 
     @Module
-    internal abstract class FavoritesActivityViewModelModule {
+    internal abstract class CategoriesViewModelModule {
 
         @Binds
         @IntoMap
-        @ViewModelKey(FavoritesViewModel::class)
-        abstract fun bindsFavoritesViewModel(viewModel: FavoritesViewModel): ViewModel
+        @ViewModelKey(CategoriesViewModel::class)
+        abstract fun bindsFavoritesViewModel(viewModel: CategoriesViewModel): ViewModel
     }
 
-    fun inject(fragment: FavoritesFragmentView) {
+    fun inject(fragment: CategoriesFragmentView) {
         val activity = fragment.activity
         val activityComponent = DaggerActivityComponent.builder()
                 .appComponent((activity?.application as App).appComponent)
                 .activityModule(ActivityModule(activity.viewModelStore))
                 .build()
 
-        DaggerFavoritesScreenConfigurator_FavoritesComponent.builder()
+        DaggerCategoriesScreenConfigurator_CategoriesComponent.builder()
                 .activityComponent(activityComponent)
-                .favoritesActivityModule(FavoritesActivityModule(FavoritesRoute(fragment.requireArguments())))
+                .categoriesModule(CategoriesModule(CategoriesRoute(fragment.requireArguments())))
                 .build()
                 .inject(fragment)
     }

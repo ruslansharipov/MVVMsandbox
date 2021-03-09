@@ -1,7 +1,7 @@
 package ru.surfstudio.android.mvvmsandbox.feature.main
 
 import androidx.lifecycle.ViewModel
-import ru.surfstudio.android.mvvmsandbox.feature.favorites.FavoritesRoute
+import ru.surfstudio.android.mvvmsandbox.feature.categories.CategoriesRoute
 import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
 import ru.surfstudio.android.navigation.command.fragment.Replace
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
@@ -12,7 +12,7 @@ class MainViewModel @Inject constructor(
 ): ViewModel(), IMainViewModel, NavigationViewModel {
 
     init {
-        Replace(FavoritesRoute("Some important arguments")).execute()
+        Replace(CategoriesRoute("Some important arguments")).execute()
     }
 
 }
