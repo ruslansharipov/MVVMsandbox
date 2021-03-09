@@ -9,7 +9,9 @@ import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule
 @Component(
     dependencies = [ActivityComponent::class],
     modules = [
-        MainActivityModule::class, ViewModelFactoryModule::class, MainActivityViewModelModule::class
+        MainActivityModule::class,
+        ViewModelFactoryModule::class,
+        MainActivityViewModelModule::class
     ]
 )
 interface MainComponent {

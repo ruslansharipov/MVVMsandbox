@@ -21,16 +21,7 @@ class MainActivity : AppCompatActivity(), FragmentNavigationContainer {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val activityComponent = DaggerActivityComponent.builder()
-                .appComponent((application as App).appComponent)
-                .activityModule(ActivityModule(viewModelStore))
-                .build()
-
-        DaggerMainComponent.builder()
-                .activityComponent(activityComponent)
-                .mainActivityModule(MainActivityModule())
-                .build()
-                .inject(this)
+        MainScreenConfigurator().inject(this)
         Log.d("MainActivity", viewModel.toString())
     }
 }
