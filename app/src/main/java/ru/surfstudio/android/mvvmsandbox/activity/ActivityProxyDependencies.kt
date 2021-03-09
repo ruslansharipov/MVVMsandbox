@@ -5,6 +5,6 @@ import ru.surfstudio.android.mvvmsandbox.view_model.DaggerViewModelFactory
 
 interface ActivityProxyDependencies {
 
-    fun providersFactory(): DaggerViewModelFactory
+//    fun providersFactory(): DaggerViewModelFactory
     fun viewModelStore(): ViewModelStore
 }

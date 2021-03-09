@@ -8,10 +8,13 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val appCommandExecutor: AppCommandExecutor
-): ViewModel() {
+): ViewModel(), IMainViewModel {
 
     init {
         appCommandExecutor.execute(Replace(FavoritesRoute()))
     }
 
 }
+
+
+interface IMainViewModel

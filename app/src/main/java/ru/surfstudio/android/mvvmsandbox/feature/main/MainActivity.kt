@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity(), FragmentNavigationContainer {
     override val containerId: Int = R.id.main_fragment_container
 
     @Inject
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModel: IMainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

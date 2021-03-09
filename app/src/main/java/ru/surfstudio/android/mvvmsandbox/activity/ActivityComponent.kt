@@ -8,6 +8,6 @@ import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule
 @ActivityScope
 @Component(
     dependencies = [AppComponent::class],
-    modules = [ActivityModule::class, ViewModelFactoryModule::class]
+    modules = [ActivityModule::class]
 )
 interface ActivityComponent: AppProxyDependencies, ActivityProxyDependencies

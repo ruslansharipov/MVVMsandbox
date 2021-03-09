@@ -14,7 +14,7 @@ import ru.surfstudio.android.mvvmsandbox.view_model.DaggerViewModelFactory
 class MainActivityModule {
 
     @Provides
-    fun provideViewModel(viewModelStore: ViewModelStore, factory: DaggerViewModelFactory) : MainViewModel {
+    fun provideViewModel(viewModelStore: ViewModelStore, factory: DaggerViewModelFactory) : IMainViewModel {
         return ViewModelProvider(viewModelStore, factory).get(MainViewModel::class.java)
     }
 

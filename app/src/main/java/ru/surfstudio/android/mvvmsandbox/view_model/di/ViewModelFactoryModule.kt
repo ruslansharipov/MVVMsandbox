@@ -6,7 +6,7 @@ import dagger.Module
 import ru.surfstudio.android.mvvmsandbox.feature.main.MainActivityViewModelModule
 import ru.surfstudio.android.mvvmsandbox.view_model.DaggerViewModelFactory
 
-@Module(includes = [MainActivityViewModelModule::class])
+@Module
 abstract class ViewModelFactoryModule {
 
     @Binds
