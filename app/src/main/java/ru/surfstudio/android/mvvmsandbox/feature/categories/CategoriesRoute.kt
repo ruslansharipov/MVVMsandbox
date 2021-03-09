@@ -7,13 +7,17 @@ import ru.surfstudio.android.navigation.route.Route
 import ru.surfstudio.android.navigation.route.fragment.FragmentRoute
 
 class CategoriesRoute(
-        val subcategories: List<Category> = emptyList()
+    val category: Category? = null
 ) : FragmentRoute() {
 
-    constructor(bundle: Bundle): this(bundle.getSerializable(Route.EXTRA_FIRST) as List<Category>)
+    constructor(bundle: Bundle): this(bundle.getSerializable(Route.EXTRA_FIRST) as? Category)
+
+    override fun getId(): String {
+        return "${super.getId()}${category?.toString() ?: ""}"
+    }
 
     override fun prepareData(): Bundle {
-        return bundleOf(Route.EXTRA_FIRST to subcategories)
+        return bundleOf(Route.EXTRA_FIRST to category)
     }
 
     override fun getScreenClassPath(): String {

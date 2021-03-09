@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.surfstudio.android.mvvmsandbox.domain.Category
 import ru.surfstudio.android.mvvmsandbox.interaction.CatalogInteractor
@@ -23,9 +24,11 @@ class CategoriesViewModel @Inject constructor(
     override val categories: MutableLiveData<Request<List<Category>>> = MutableLiveData()
 
     init {
-        val subcategories = route.subcategories
-        if (subcategories.isEmpty()) {
+        val subcategories = route.category?.children
+        if (subcategories == null) {
+            categories.value = Request.Loading()
             viewModelScope.launch {
+                delay(1000)
                 categories.value = request { catalogInteractor.getCategories() }
             }
         } else {
@@ -36,7 +39,7 @@ class CategoriesViewModel @Inject constructor(
     override fun categoryClick(category: Category) {
         val children = category.children
         if (children.isNotEmpty()) {
-            Replace(CategoriesRoute(children))
+            Replace(CategoriesRoute(category)).execute()
         }
     }
 }

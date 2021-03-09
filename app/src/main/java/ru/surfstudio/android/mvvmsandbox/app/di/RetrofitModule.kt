@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -15,6 +16,7 @@ class RetrofitModule {
         return Retrofit.Builder()
             .baseUrl("https://upstage.rivegauche.ru/rg/v1/newRG/")
             .client(OkHttpClient())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 }
