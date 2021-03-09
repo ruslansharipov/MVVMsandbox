@@ -2,6 +2,7 @@ package ru.surfstudio.android.mvvmsandbox.feature.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import ru.surfstudio.android.mvvmsandbox.R
 import ru.surfstudio.android.mvvmsandbox.activity.ActivityModule
 import ru.surfstudio.android.mvvmsandbox.activity.DaggerActivityComponent
@@ -30,5 +31,6 @@ class MainActivity : AppCompatActivity(), FragmentNavigationContainer {
                 .mainActivityModule(MainActivityModule())
                 .build()
                 .inject(this)
+        Log.d("MainActivity", viewModel.toString())
     }
 }
