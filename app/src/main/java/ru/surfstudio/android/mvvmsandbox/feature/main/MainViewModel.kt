@@ -12,7 +12,7 @@ class MainViewModel @Inject constructor(
 ): ViewModel(), IMainViewModel, NavigationViewModel {
 
     init {
-        Replace(CategoriesRoute("Some important arguments")).execute()
+        Replace(CategoriesRoute()).execute()
     }
 
 }

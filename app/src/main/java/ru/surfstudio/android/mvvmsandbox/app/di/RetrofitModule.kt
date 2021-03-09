@@ -13,7 +13,7 @@ class RetrofitModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://upstage.rivegauche.ru/rg/v1/newRG")
+            .baseUrl("https://upstage.rivegauche.ru/rg/v1/newRG/")
             .client(OkHttpClient())
             .build()
     }
