@@ -11,6 +11,7 @@ import ru.surfstudio.android.mvvmsandbox.interaction.CatalogInteractor
 import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
 import ru.surfstudio.android.mvvmsandbox.network.Request
 import ru.surfstudio.android.mvvmsandbox.network.request
+import ru.surfstudio.android.navigation.command.fragment.RemoveLast
 import ru.surfstudio.android.navigation.command.fragment.Replace
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import javax.inject.Inject

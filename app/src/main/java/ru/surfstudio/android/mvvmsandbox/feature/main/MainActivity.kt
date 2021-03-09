@@ -24,4 +24,8 @@ class MainActivity : AppCompatActivity(), FragmentNavigationContainer {
         MainScreenConfigurator().inject(this)
         Log.d("MainActivity", viewModel.toString())
     }
+
+    override fun onBackPressed() {
+        viewModel.onBackPress()
+    }
 }
