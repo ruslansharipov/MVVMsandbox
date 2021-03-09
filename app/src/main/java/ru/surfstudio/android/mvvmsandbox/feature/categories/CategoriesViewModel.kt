@@ -1,5 +1,6 @@
 package ru.surfstudio.android.mvvmsandbox.feature.categories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +12,6 @@ import ru.surfstudio.android.mvvmsandbox.interaction.CatalogInteractor
 import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
 import ru.surfstudio.android.mvvmsandbox.network.Request
 import ru.surfstudio.android.mvvmsandbox.network.request
-import ru.surfstudio.android.navigation.command.fragment.RemoveLast
 import ru.surfstudio.android.navigation.command.fragment.Replace
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import javax.inject.Inject
@@ -21,6 +21,12 @@ class CategoriesViewModel @Inject constructor(
         private val catalogInteractor: CatalogInteractor,
         private val route: CategoriesRoute
 ) : ViewModel(), NavigationViewModel, ICategoriesViewModel {
+
+    private val TAG = "ViewModel"
+
+    init {
+        Log.d(TAG, "CategoriesViewModel: init ${hashCode()}")
+    }
 
     override val categories: MutableLiveData<Request<List<Category>>> = MutableLiveData()
 
@@ -42,6 +48,10 @@ class CategoriesViewModel @Inject constructor(
         if (children.isNotEmpty()) {
             Replace(CategoriesRoute(category)).execute()
         }
+    }
+
+    override fun onCleared() {
+        Log.d(TAG, "CategoriesViewModel: cleared ${hashCode()}")
     }
 }
 

@@ -15,6 +15,7 @@ import ru.surfstudio.android.mvvmsandbox.app.App
 import ru.surfstudio.android.mvvmsandbox.feature.di.CustomScreenModule
 import ru.surfstudio.android.mvvmsandbox.feature.di.ScreenScope
 import ru.surfstudio.android.mvvmsandbox.feature.di.ViewModelKey
+import ru.surfstudio.android.mvvmsandbox.feature.di.ViewModelStoreModule
 import ru.surfstudio.android.mvvmsandbox.view_model.DaggerViewModelFactory
 import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule
 
@@ -22,27 +23,32 @@ internal class CategoriesScreenConfigurator {
 
     @ScreenScope
     @Component(
-            dependencies = [ActivityComponent::class],
-            modules = [
-                CategoriesModule::class,
-                ViewModelFactoryModule::class,
-                CategoriesViewModelModule::class
-            ]
+        dependencies = [ActivityComponent::class],
+        modules = [
+            CategoriesModule::class,
+            ViewModelFactoryModule::class,
+            CategoriesViewModelModule::class,
+            ViewModelStoreModule::class
+        ]
     )
     internal interface CategoriesComponent {
         fun inject(view: CategoriesFragmentView)
     }
 
     @Module
-    internal class CategoriesModule(route: CategoriesRoute) : CustomScreenModule<CategoriesRoute>(route) {
+    internal class CategoriesModule(route: CategoriesRoute) :
+        CustomScreenModule<CategoriesRoute>(route) {
 
         @Provides
         fun provideViewModel(
-                viewModelStore: ViewModelStore,
-                factory: DaggerViewModelFactory,
-                route: CategoriesRoute
+            viewModelStore: ViewModelStore,
+            factory: DaggerViewModelFactory,
+            route: CategoriesRoute
         ): ICategoriesViewModel {
-            return ViewModelProvider(viewModelStore, factory).get(route.getId(), CategoriesViewModel::class.java)
+            return ViewModelProvider(viewModelStore, factory).get(
+                route.getId(),
+                CategoriesViewModel::class.java
+            )
         }
     }
 
@@ -58,14 +64,15 @@ internal class CategoriesScreenConfigurator {
     fun inject(fragment: CategoriesFragmentView) {
         val activity = fragment.activity
         val activityComponent = DaggerActivityComponent.builder()
-                .appComponent((activity?.application as App).appComponent)
-                .activityModule(ActivityModule(activity.viewModelStore))
-                .build()
+            .appComponent((activity?.application as App).appComponent)
+            .activityModule(ActivityModule())
+            .build()
 
         DaggerCategoriesScreenConfigurator_CategoriesComponent.builder()
-                .activityComponent(activityComponent)
-                .categoriesModule(CategoriesModule(CategoriesRoute(fragment.requireArguments())))
-                .build()
-                .inject(fragment)
+            .activityComponent(activityComponent)
+            .viewModelStoreModule(ViewModelStoreModule(fragment.viewModelStore))
+            .categoriesModule(CategoriesModule(CategoriesRoute(fragment.requireArguments())))
+            .build()
+            .inject(fragment)
     }
 }
