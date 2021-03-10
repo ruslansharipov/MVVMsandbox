@@ -71,3 +71,7 @@
 **Видео работы экрана**
 
 https://drive.google.com/file/d/11WPFWqCXuO3ryLasOA9jcBHKZhJnf-Gq/view?usp=sharing
+
+## Запросы
+Используется студийный мокер
+https://r1.mocker.surfstudio.ru/files/mvvm_android_research/
