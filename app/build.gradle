@@ -49,6 +49,7 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.2.0"
 
     implementation "ru.surfstudio.android:navigation:0.5.0-alpha.4"
+    implementation "ru.surfstudio.android:datalist-page-count:0.5.0-alpha.4"
 
     def daggerVersion = '2.27'
     implementation "com.google.dagger:dagger:$daggerVersion"

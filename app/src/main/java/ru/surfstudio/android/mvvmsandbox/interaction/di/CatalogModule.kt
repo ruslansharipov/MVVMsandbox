@@ -3,7 +3,7 @@ package ru.surfstudio.android.mvvmsandbox.interaction.di
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import ru.surfstudio.android.mvvmsandbox.interaction.CatalogApi
+import ru.surfstudio.android.mvvmsandbox.interaction.catalog.CatalogApi
 import javax.inject.Singleton
 
 @Module

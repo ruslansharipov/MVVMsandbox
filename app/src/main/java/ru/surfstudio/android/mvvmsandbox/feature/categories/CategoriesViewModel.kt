@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.surfstudio.android.mvvmsandbox.domain.Category
-import ru.surfstudio.android.mvvmsandbox.interaction.CatalogInteractor
+import ru.surfstudio.android.mvvmsandbox.interaction.catalog.CatalogInteractor
 import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
 import ru.surfstudio.android.mvvmsandbox.network.Request
 import ru.surfstudio.android.mvvmsandbox.network.request
