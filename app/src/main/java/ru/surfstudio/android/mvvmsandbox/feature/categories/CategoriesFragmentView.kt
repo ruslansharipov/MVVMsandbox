@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -20,8 +21,9 @@ class CategoriesFragmentView : Fragment() {
     @Inject
     lateinit var viewModel: ICategoriesViewModel
 
-    private lateinit var placeholderTv: TextView
+    private lateinit var errorTv: TextView
     private lateinit var categoriesRv: RecyclerView
+    private lateinit var loadingPb: ProgressBar
 
     private val categoryAdapter = EasyAdapter()
     private val categoryController = CategoryController { category: Category ->
@@ -50,23 +52,25 @@ class CategoriesFragmentView : Fragment() {
         viewModel.categories.observe(viewLifecycleOwner) { request ->
             when (request) {
                 is Request.Error -> {
-                    placeholderTv.text = "Ошибка: ${request.error.message}"
+                    errorTv.text = "Ошибка: ${request.error.message}"
                 }
                 is Request.Loading -> {
-                    placeholderTv.text = "Загрузка..."
+                    // Ничего не делаем
                 }
                 is Request.Success -> {
                     categoryAdapter.setData(request.data, categoryController)
                 }
             }
-            placeholderTv.isVisible = request !is Request.Success
+            loadingPb.isVisible = request is Request.Loading
+            errorTv.isVisible = request is Request.Error
             categoriesRv.isVisible = request is Request.Success
         }
     }
 
     private fun initView(view: View) {
-        placeholderTv = view.findViewById(R.id.categories_placeholder_tv)
+        errorTv = view.findViewById(R.id.categories_error_tv)
         categoriesRv = view.findViewById(R.id.categories_rv)
+        loadingPb = view.findViewById(R.id.categories_pb)
 
         categoriesRv.run {
             layoutManager = LinearLayoutManager(context)
