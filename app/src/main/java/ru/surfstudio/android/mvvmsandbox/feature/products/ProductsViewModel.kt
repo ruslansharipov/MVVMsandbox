@@ -28,11 +28,11 @@ class ProductsViewModel @Inject constructor(
 
     init {
         Log.d("ProductsViewModel", "init: ${this.hashCode()}")
-        loadProducts(page = 0)
+        loadProducts(page = 1)
     }
 
     override fun loadMode() {
-        loadProducts(products.value?.data?.list?.nextPage ?: 0)
+        loadProducts(products.value?.data?.list?.nextPage ?: 1)
     }
 
     override fun onFavoriteClick(product: Product) {
@@ -105,7 +105,6 @@ class ProductsViewModel @Inject constructor(
                 }
         }
     }
-
 }
 
 interface IProductsViewModel {

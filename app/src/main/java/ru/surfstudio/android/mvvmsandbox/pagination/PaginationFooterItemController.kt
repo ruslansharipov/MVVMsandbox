@@ -5,8 +5,6 @@ import android.widget.Button
 import android.widget.ProgressBar
 import androidx.annotation.LayoutRes
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.surfstudio.android.easyadapter.pagination.EasyPaginationAdapter
 import ru.surfstudio.android.easyadapter.pagination.PaginationState
 import ru.surfstudio.android.mvvmsandbox.R
@@ -43,11 +41,6 @@ class PaginationFooterItemController(
         }
 
         override fun bind(state: PaginationState) {
-            // для пагинации на StaggeredGrid
-            if (itemView.layoutParams is StaggeredGridLayoutManager.LayoutParams) {
-                itemView.updateLayoutParams<StaggeredGridLayoutManager.LayoutParams> { isFullSpan = true }
-            }
-
             val isLoading = state == PaginationState.READY
             val isError = state == PaginationState.ERROR
 

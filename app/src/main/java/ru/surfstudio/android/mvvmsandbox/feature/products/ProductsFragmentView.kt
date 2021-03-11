@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,10 +20,14 @@ class ProductsFragmentView : Fragment() {
     @Inject
     lateinit var viewModel: IProductsViewModel
 
-    private val easyAdapter =
-        EasyPaginationAdapter(PaginationFooterItemController(R.layout.list_item_pagination_footer)) {
-            viewModel.loadMode()
-        }
+    private lateinit var errorTv: TextView
+    private lateinit var loadingPb: ProgressBar
+    private lateinit var productsRv: RecyclerView
+
+    private val easyAdapter = EasyPaginationAdapter(
+        PaginationFooterItemController(R.layout.list_item_pagination_footer),
+        { viewModel.loadMode() }
+    )
     private val productController = ProductViewController(
         onProductClick = { }, // TODO
         onFavoriteClick = { viewModel.onFavoriteClick(it) }
@@ -41,16 +48,25 @@ class ProductsFragmentView : Fragment() {
     }
 
     private fun initViews(view: View) {
-        val productsRv = view.findViewById<RecyclerView>(R.id.products_rv)
+        loadingPb = view.findViewById(R.id.products_pb)
+        errorTv = view.findViewById(R.id.products_error_tv)
+
+        productsRv = view.findViewById<RecyclerView>(R.id.products_rv)
         productsRv.layoutManager = GridLayoutManager(requireContext(), 2)
         productsRv.adapter = easyAdapter
     }
 
     private fun bindViews() {
-        viewModel.products.observe(viewLifecycleOwner) { paginationBundle ->
-            paginationBundle.data?.safeGet { dataList, paginationState ->
+        viewModel.products.observe(viewLifecycleOwner) { requestUi ->
+            requestUi.data?.safeGet { dataList, paginationState ->
                 easyAdapter.setData(dataList, productController, paginationState)
             }
+            val hasData = requestUi.data?.hasData ?: false
+            productsRv.isVisible = hasData
+            loadingPb.isVisible = !hasData && requestUi.isLoading
+            errorTv.isVisible = !hasData && !requestUi.isLoading && requestUi.hasError
+
+            errorTv.text = requestUi.error?.message
         }
     }
 }
