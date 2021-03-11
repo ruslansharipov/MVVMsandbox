@@ -35,6 +35,60 @@ class ProductsViewModel @Inject constructor(
         loadProducts(products.value?.data?.list?.nextPage ?: 0)
     }
 
+    override fun onFavoriteClick(product: Product) {
+        viewModelScope.launch {
+            requestFlow {
+                if (product.addedToWishlist) {
+                    catalogInteractor.removeFavorite(product.code)
+                } else {
+                    catalogInteractor.addFavorite(product.code)
+                }
+            }
+                .flowOn(Dispatchers.IO)
+                .collect { request: Request<Unit> ->
+                    updateFavoriteStatus(request, product.code, !product.addedToWishlist)
+                }
+        }
+    }
+
+    private fun updateFavoriteStatus(
+        request: Request<Unit>,
+        productCode: String,
+        addedToWishList: Boolean
+    ) {
+        val currentValue = products.value
+        products.value = when (request) {
+            is Request.Loading -> currentValue?.copy(
+                data = currentValue.data?.copy(
+                    list = currentValue.data?.list?.changeProductWith(productCode) {
+                        it.copy(addedToWishlist = addedToWishList)
+                    }
+                )
+            )
+            is Request.Error -> currentValue?.copy(
+                data = currentValue.data?.copy(
+                    list = currentValue.data?.list?.changeProductWith(productCode) {
+                        it.copy(addedToWishlist = !addedToWishList)
+                    }
+                )
+            )
+            is Request.Success -> products.value
+        }
+    }
+
+    private fun DataList<Product>.changeProductWith(
+        code: String,
+        transform: (Product) -> Product
+    ): DataList<Product> {
+        return this.transform { product: Product ->
+            if (product.code == code) {
+                transform(product)
+            } else {
+                product
+            }
+        }
+    }
+
     private fun loadProducts(page: Int) {
         viewModelScope.launch {
             requestFlow { catalogInteractor.getProducts(page) }
@@ -57,4 +111,5 @@ class ProductsViewModel @Inject constructor(
 interface IProductsViewModel {
     val products: LiveData<RequestUi<PaginationBundle<Product>>>
     fun loadMode()
+    fun onFavoriteClick(product: Product)
 }

@@ -50,6 +50,7 @@ dependencies {
 
     implementation "ru.surfstudio.android:navigation:0.5.0-alpha.4"
     implementation "ru.surfstudio.android:datalist-page-count:0.5.0-alpha.4"
+    implementation "ru.surfstudio.android:imageloader:0.5.0-alpha.4"
     implementation "ru.surfstudio.android:mvi-mapper:0.5.0-alpha.29"
     implementation "ru.surfstudio.android:core-mvp-binding:0.5.0-alpha.4" // TODO вынести Request и RequestUi в отдельную либу
 

@@ -13,4 +13,27 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Text" parent="TextAppearance.AppCompat" />
+
+    <style name="Text.15_133_R_Roboto">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+    </style>
+
+    <style name="Text.12_133_R_Roboto">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+    </style>
+
+    <style name="Text.17_140_B_Roboto">
+        <item name="android:textSize">17sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="Text.15_140_R_Roboto">
+        <item name="android:textSize">15sp</item>
+        <item name="android:translationY">-0.28sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
 </resources>

@@ -23,4 +23,8 @@ class CatalogInteractor @Inject constructor(
     suspend fun addFavorite(productCode: String) {
         return catalogApi.addFavorite(productCode)
     }
+
+    suspend fun removeFavorite(code: String) {
+        return catalogApi.addFavorite(code)
+    }
 }

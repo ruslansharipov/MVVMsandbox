@@ -8,7 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="medium_light_gray">#E5E5E5</color>
+    <color name="textColorPrimary">@color/black</color>
+    <color name="textColorSecondary">@color/text_gray</color>
+    <color name="textColorLight">@color/white</color>
+    <color name="textColorError">@color/red</color>
 
     <color name="defaultRippleColor">@color/medium_light_gray</color>
 </resources>
