@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.mvvmsandbox.R
 import ru.surfstudio.android.mvvmsandbox.domain.Category
-import ru.surfstudio.android.mvvmsandbox.network.Request
 import javax.inject.Inject
 
 class CategoriesFragmentView : Fragment() {
@@ -50,20 +49,20 @@ class CategoriesFragmentView : Fragment() {
 
     private fun observeCategories() {
         viewModel.categories.observe(viewLifecycleOwner) { request ->
-            when (request) {
-                is Request.Error -> {
-                    errorTv.text = "Ошибка: ${request.error.message}"
+            when {
+                request.isError -> {
+                    errorTv.text = "Ошибка: ${request.getError().message}"
                 }
-                is Request.Loading -> {
+                request.isLoading -> {
                     // Ничего не делаем
                 }
-                is Request.Success -> {
-                    categoryAdapter.setData(request.data, categoryController)
+                request.isSuccess -> {
+                    categoryAdapter.setData(request.getData(), categoryController)
                 }
             }
-            loadingPb.isVisible = request is Request.Loading
-            errorTv.isVisible = request is Request.Error
-            categoriesRv.isVisible = request is Request.Success
+            loadingPb.isVisible = request.isLoading
+            errorTv.isVisible = request.isError
+            categoriesRv.isVisible = request.isSuccess
         }
     }
 

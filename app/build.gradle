@@ -50,6 +50,8 @@ dependencies {
 
     implementation "ru.surfstudio.android:navigation:0.5.0-alpha.4"
     implementation "ru.surfstudio.android:datalist-page-count:0.5.0-alpha.4"
+    implementation "ru.surfstudio.android:mvi-mapper:0.5.0-alpha.29"
+    implementation "ru.surfstudio.android:core-mvp-binding:0.5.0-alpha.4" // TODO вынести Request и RequestUi в отдельную либу
 
     def daggerVersion = '2.27'
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -60,7 +62,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
-    implementation "ru.surfstudio.android:easyadapter:2.0.0"
+    def easyAdapterVersion = "2.0.0"
+    implementation "ru.surfstudio.android:easyadapter:$easyAdapterVersion"
+    implementation "ru.surfstudio.android:easyadapter-pagination:$easyAdapterVersion"
+
 
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
 

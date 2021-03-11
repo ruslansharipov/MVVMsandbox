@@ -7,10 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.surfstudio.android.core.mvp.binding.rx.request.Request
 import ru.surfstudio.android.mvvmsandbox.domain.Category
+import ru.surfstudio.android.mvvmsandbox.feature.products.ProductsRoute
 import ru.surfstudio.android.mvvmsandbox.interaction.catalog.CatalogInteractor
 import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
-import ru.surfstudio.android.mvvmsandbox.network.Request
 import ru.surfstudio.android.mvvmsandbox.network.request
 import ru.surfstudio.android.navigation.command.fragment.Replace
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
@@ -45,9 +46,12 @@ class CategoriesViewModel @Inject constructor(
 
     override fun categoryClick(category: Category) {
         val children = category.children
-        if (children.isNotEmpty()) {
-            Replace(CategoriesRoute(category)).execute()
+        val route = if (children.isNotEmpty()) {
+            CategoriesRoute(category)
+        } else {
+            ProductsRoute()
         }
+        Replace(route).execute()
     }
 
     override fun onCleared() {
