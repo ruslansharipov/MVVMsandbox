@@ -1,23 +1,20 @@
 package ru.surfstudio.android.mvvmsandbox.feature.categories
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
-import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import dagger.multibindings.IntoMap
 import ru.surfstudio.android.mvvmsandbox.activity.ActivityComponent
 import ru.surfstudio.android.mvvmsandbox.activity.ActivityModule
 import ru.surfstudio.android.mvvmsandbox.activity.DaggerActivityComponent
 import ru.surfstudio.android.mvvmsandbox.app.App
 import ru.surfstudio.android.mvvmsandbox.feature.di.CustomScreenModule
 import ru.surfstudio.android.mvvmsandbox.feature.di.ScreenScope
-import ru.surfstudio.android.mvvmsandbox.feature.di.ViewModelKey
 import ru.surfstudio.android.mvvmsandbox.feature.di.ViewModelStoreModule
-import ru.surfstudio.android.mvvmsandbox.view_model.DaggerViewModelFactory
+import ru.surfstudio.android.mvvmsandbox.view_model.ProviderViewModelFactory
 import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule
+import javax.inject.Provider
 
 internal class CategoriesScreenConfigurator {
 
@@ -27,7 +24,6 @@ internal class CategoriesScreenConfigurator {
         modules = [
             CategoriesModule::class,
             ViewModelFactoryModule::class,
-            CategoriesViewModelModule::class,
             ViewModelStoreModule::class
         ]
     )
@@ -42,23 +38,14 @@ internal class CategoriesScreenConfigurator {
         @Provides
         fun provideViewModel(
             viewModelStore: ViewModelStore,
-            factory: DaggerViewModelFactory,
+            provider: Provider<CategoriesViewModel>,
             route: CategoriesRoute
         ): ICategoriesViewModel {
-            return ViewModelProvider(viewModelStore, factory).get(
+            return ViewModelProvider(viewModelStore, ProviderViewModelFactory(provider)).get(
                 route.getId(),
                 CategoriesViewModel::class.java
             )
         }
-    }
-
-    @Module
-    internal abstract class CategoriesViewModelModule {
-
-        @Binds
-        @IntoMap
-        @ViewModelKey(CategoriesViewModel::class)
-        abstract fun bindsFavoritesViewModel(viewModel: CategoriesViewModel): ViewModel
     }
 
     fun inject(fragment: CategoriesFragmentView) {
