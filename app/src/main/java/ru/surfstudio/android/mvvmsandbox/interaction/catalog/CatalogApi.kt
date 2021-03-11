@@ -15,4 +15,7 @@ interface CatalogApi {
         @Query("currentPage") currentPage: Int,
         @Query("pageSize") pageSize: Int
     ): ProductsResponse
+
+    @GET("favorites")
+    suspend fun addFavorite(@Query("productCode") productCode: String)
 }

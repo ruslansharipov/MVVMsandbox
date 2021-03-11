@@ -19,4 +19,8 @@ class CatalogInteractor @Inject constructor(
     suspend fun getProducts(page: Int): DataList<Product> {
         return catalogApi.getProducts(currentPage = page, pageSize = 20).transform()
     }
+
+    suspend fun addFavorite(productCode: String) {
+        return catalogApi.addFavorite(productCode)
+    }
 }
