@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -75,6 +72,9 @@ class ProductsFragmentView : Fragment() {
             errorContainer.isVisible = !hasData && !requestUi.isLoading && requestUi.hasError
 
             errorTv.text = requestUi.error?.message
+        }
+        viewModel.toasts.observe(viewLifecycleOwner){ toast: String ->
+            Toast.makeText(requireContext(), toast, Toast.LENGTH_SHORT).show()
         }
     }
 }

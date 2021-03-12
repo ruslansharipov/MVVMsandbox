@@ -25,6 +25,7 @@ class ProductsViewModel @Inject constructor(
 ) : ViewModel(), IProductsViewModel {
 
     override val products = MutableLiveData<RequestUi<PaginationBundle<Product>>>(RequestUi())
+    override val toasts = MutableLiveData<String>()
 
     init {
         Log.d("ProductsViewModel", "init: ${this.hashCode()}")
@@ -47,6 +48,7 @@ class ProductsViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .collect { request: Request<Unit> ->
                     updateFavoriteStatus(request, product.code, !product.addedToWishlist)
+                    reactOnFavoriteRequest(request, product.code, !product.addedToWishlist)
                 }
         }
     }
@@ -72,7 +74,34 @@ class ProductsViewModel @Inject constructor(
                     }
                 )
             )
-            is Request.Success -> products.value
+            is Request.Success -> {
+                products.value
+            }
+        }
+    }
+
+    private fun reactOnFavoriteRequest(
+        request: Request<Unit>,
+        productCode: String,
+        addedToWishList: Boolean
+    ) {
+        when(request){
+            is Request.Success -> {
+                val message = if (addedToWishList) {
+                    "Продукт $productCode добавлен в избранное"
+                } else {
+                    "Продукт $productCode удален из избранного"
+                }
+                toasts.postValue(message)
+            }
+            is Request.Error -> {
+                val message = if (addedToWishList) {
+                    "Ошибка добавления продукта $productCode в избранное"
+                } else {
+                    "Ошибка удаления продукта $productCode из избранного"
+                }
+                toasts.postValue(message)
+            }
         }
     }
 
@@ -97,10 +126,6 @@ class ProductsViewModel @Inject constructor(
                     products.value = RequestMapper.builder(request, products.value?.data)
                         .mapData(RequestMappers.data.pagination())
                         .mapLoading(RequestMappers.loading.simple())
-                        .handleError { error, data, loading ->
-                            // TODO handle error
-                            true
-                        }
                         .build()
                 }
         }
@@ -109,6 +134,7 @@ class ProductsViewModel @Inject constructor(
 
 interface IProductsViewModel {
     val products: LiveData<RequestUi<PaginationBundle<Product>>>
+    val toasts: LiveData<String>
     fun loadMode()
     fun onFavoriteClick(product: Product)
 }
