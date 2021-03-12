@@ -125,3 +125,18 @@ https://drive.google.com/file/d/1uRfpjgwkPOB7hLhrzWeeTj86yjkLvpJG/view?usp=shari
 ## Запросы
 Используется студийный мокер
 https://r1.mocker.surfstudio.ru/files/mvvm_android_research/
+
+для работы с флоу добавлен экстеншен, который сразу при начале запроса эмитит Request.Loading, а как только запрос завершится - эмитит успех или ошибку в зависимости от того как завершился запрос.
+
+```kotlin
+fun <T> requestFlow(requestFunc: suspend () -> T): Flow<Request<T>> {
+    return flow<Request<T>> {
+        emit(Request.Loading())
+        try {
+            emit(Request.Success(requestFunc()))
+        } catch (e: Exception) {
+            emit(Request.Error(e))
+        }
+    }
+}
+```
