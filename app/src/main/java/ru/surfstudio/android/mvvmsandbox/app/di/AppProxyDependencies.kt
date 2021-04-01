@@ -3,6 +3,7 @@ package ru.surfstudio.android.mvvmsandbox.app.di
 import android.content.Context
 import ru.surfstudio.android.mvvmsandbox.interaction.catalog.CatalogInteractor
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
+import ru.surfstudio.android.navigation.observer.ScreenResultObserver
 import ru.surfstudio.android.navigation.provider.ActivityNavigationProvider
 
 /**
@@ -13,6 +14,7 @@ import ru.surfstudio.android.navigation.provider.ActivityNavigationProvider
 interface AppProxyDependencies {
     fun context(): Context
 
+    fun screenResultObserver(): ScreenResultObserver
     fun commandExecutor(): AppCommandExecutor
     fun activityNavigationProvider(): ActivityNavigationProvider
 
