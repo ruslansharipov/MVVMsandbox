@@ -8,13 +8,17 @@ import javax.inject.Inject
 
 @ScreenScope
 class MapViewModelImpl @Inject constructor(
-
 ) : ViewModel(), MapViewModel {
 
     override val permissionState = MutableStateFlow(PermissionStatus.DENIED)
 
-    init {
-
+    override fun permissionUpdated(isGranted: Boolean) {
+        val status = if (isGranted) {
+            PermissionStatus.GRANTED
+        } else {
+            PermissionStatus.DENIED
+        }
+        permissionState.tryEmit(status)
     }
 
 }
@@ -22,4 +26,6 @@ class MapViewModelImpl @Inject constructor(
 interface MapViewModel {
 
     val permissionState: StateFlow<PermissionStatus>
+
+    fun permissionUpdated(isGranted: Boolean)
 }

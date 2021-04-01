@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.activity
+package ru.surfstudio.android.mvvmsandbox.activity.di
 
 import javax.inject.Scope
 

@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModelStore
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import ru.surfstudio.android.mvvmsandbox.activity.ActivityComponent
-import ru.surfstudio.android.mvvmsandbox.activity.ActivityModule
-import ru.surfstudio.android.mvvmsandbox.activity.DaggerActivityComponent
+import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityComponent
+import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityModule
+import ru.surfstudio.android.mvvmsandbox.activity.di.DaggerActivityComponent
 import ru.surfstudio.android.mvvmsandbox.app.App
 import ru.surfstudio.android.mvvmsandbox.feature.di.CustomScreenModule
 import ru.surfstudio.android.mvvmsandbox.feature.di.ScreenScope

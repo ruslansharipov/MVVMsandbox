@@ -2,10 +2,8 @@ package ru.surfstudio.android.mvvmsandbox.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ru.surfstudio.android.mvvmsandbox.activity.ActivityScope
 import javax.inject.Inject
 import javax.inject.Provider
-import javax.inject.Singleton
 
 class DaggerViewModelFactory @Inject constructor(
     private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>

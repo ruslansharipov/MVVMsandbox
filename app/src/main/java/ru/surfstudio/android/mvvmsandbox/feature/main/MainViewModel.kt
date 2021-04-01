@@ -2,6 +2,7 @@ package ru.surfstudio.android.mvvmsandbox.feature.main
 
 import androidx.lifecycle.ViewModel
 import ru.surfstudio.android.mvvmsandbox.feature.categories.CategoriesRoute
+import ru.surfstudio.android.mvvmsandbox.feature.map.MapRoute
 import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
 import ru.surfstudio.android.navigation.command.activity.Finish
 import ru.surfstudio.android.navigation.command.fragment.RemoveLast
@@ -17,7 +18,7 @@ class MainViewModel @Inject constructor(
 ): ViewModel(), IMainViewModel, NavigationViewModel {
 
     init {
-        Replace(CategoriesRoute()).execute()
+        Replace(MapRoute()).execute()
     }
 
     override fun onBackPress() {

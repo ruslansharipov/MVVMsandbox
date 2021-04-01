@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.activity
+package ru.surfstudio.android.mvvmsandbox.activity.di
 
 import dagger.Component
 import ru.surfstudio.android.mvvmsandbox.app.di.AppComponent

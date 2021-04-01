@@ -4,9 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import ru.surfstudio.android.mvvmsandbox.R
-import ru.surfstudio.android.mvvmsandbox.activity.ActivityModule
-import ru.surfstudio.android.mvvmsandbox.activity.DaggerActivityComponent
-import ru.surfstudio.android.mvvmsandbox.app.App
 import ru.surfstudio.android.navigation.provider.container.FragmentNavigationContainer
 import javax.inject.Inject
 

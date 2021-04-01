@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.feature.main
+package ru.surfstudio.android.mvvmsandbox.feature.map
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
@@ -9,54 +9,57 @@ import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityComponent
 import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityModule
 import ru.surfstudio.android.mvvmsandbox.activity.di.DaggerActivityComponent
 import ru.surfstudio.android.mvvmsandbox.app.App
-import ru.surfstudio.android.mvvmsandbox.feature.di.*
+import ru.surfstudio.android.mvvmsandbox.feature.di.CustomScreenModule
+import ru.surfstudio.android.mvvmsandbox.feature.di.ScreenScope
+import ru.surfstudio.android.mvvmsandbox.feature.di.ViewModelStoreModule
 import ru.surfstudio.android.mvvmsandbox.view_model.ProviderViewModelFactory
 import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule
 import javax.inject.Provider
 
-internal class MainScreenConfigurator {
+internal class MapScreenConfigurator {
 
     @ScreenScope
     @Component(
         dependencies = [ActivityComponent::class],
         modules = [
-            MainActivityModule::class,
+            MapModule::class,
             ViewModelFactoryModule::class,
             ViewModelStoreModule::class
         ]
     )
-    internal interface MainComponent {
-        fun inject(view: MainActivity)
+    internal interface MapComponent {
+        fun inject(view: MapFragmentView)
     }
 
     @Module
-    internal class MainActivityModule(route: MainScreenRoute) :
-        CustomScreenModule<MainScreenRoute>(route) {
+    internal class MapModule(route: MapRoute) :
+        CustomScreenModule<MapRoute>(route) {
 
         @Provides
         fun provideViewModel(
             viewModelStore: ViewModelStore,
-            provider: Provider<MainViewModel>,
-            route: MainScreenRoute
-        ): IMainViewModel {
+            provider: Provider<MapViewModelImpl>,
+            route: MapRoute
+        ): MapViewModel {
             return ViewModelProvider(viewModelStore, ProviderViewModelFactory(provider)).get(
                 route.getId(),
-                MainViewModel::class.java
+                MapViewModelImpl::class.java
             )
         }
     }
 
-    fun inject(activity: MainActivity) {
+    fun inject(fragment: MapFragmentView) {
+        val activity = fragment.activity
         val activityComponent = DaggerActivityComponent.builder()
-            .appComponent((activity.application as App).appComponent)
+            .appComponent((activity?.application as App).appComponent)
             .activityModule(ActivityModule())
             .build()
 
-        DaggerMainScreenConfigurator_MainComponent.builder()
+        DaggerMapScreenConfigurator_MapComponent.builder()
             .activityComponent(activityComponent)
-            .viewModelStoreModule(ViewModelStoreModule(activity.viewModelStore))
-            .mainActivityModule(MainActivityModule(MainScreenRoute(activity.intent)))
+            .viewModelStoreModule(ViewModelStoreModule(fragment.viewModelStore))
+            .mapModule(MapModule(MapRoute()))
             .build()
-            .inject(activity)
+            .inject(fragment)
     }
 }
