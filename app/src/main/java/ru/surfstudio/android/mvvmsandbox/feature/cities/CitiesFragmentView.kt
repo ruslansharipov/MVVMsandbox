@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.feature.map
+package ru.surfstudio.android.mvvmsandbox.feature.cities
 
 import android.Manifest
 import android.os.Bundle
@@ -14,19 +14,14 @@ import kotlinx.coroutines.launch
 import ru.surfstudio.android.mvvmsandbox.R
 import javax.inject.Inject
 
-class MapFragmentView : Fragment() {
+class CitiesFragmentView : Fragment() {
 
     @Inject
-    lateinit var viewModel: MapViewModel
+    lateinit var viewModel: CitiesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MapScreenConfigurator().inject(this)
-
-        val resultLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-                viewModel.permissionUpdated(isGranted)
-            }
-        resultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        CitiesScreenConfigurator().inject(this)
     }
 
     override fun onCreateView(
@@ -38,9 +33,7 @@ class MapFragmentView : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val statusTv = view.findViewById<TextView>(R.id.map_status_tv)
         lifecycleScope.launch {
-            viewModel.permissionState.collect { status: PermissionStatus ->
-                statusTv.text = status.name
-            }
+
         }
     }
 }

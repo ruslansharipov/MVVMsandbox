@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.feature.map
+package ru.surfstudio.android.mvvmsandbox.feature.cities
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
@@ -16,49 +16,49 @@ import ru.surfstudio.android.mvvmsandbox.view_model.ProviderViewModelFactory
 import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule
 import javax.inject.Provider
 
-internal class MapScreenConfigurator {
+internal class CitiesScreenConfigurator {
 
     @ScreenScope
     @Component(
         dependencies = [ActivityComponent::class],
         modules = [
-            MapModule::class,
+            CitiesModule::class,
             ViewModelFactoryModule::class,
             ViewModelStoreModule::class
         ]
     )
-    internal interface MapComponent {
-        fun inject(view: MapFragmentView)
+    internal interface CitiesComponent {
+        fun inject(view: CitiesFragmentView)
     }
 
     @Module
-    internal class MapModule(route: MapRoute) :
-        CustomScreenModule<MapRoute>(route) {
+    internal class CitiesModule(route: CitiesRoute) :
+        CustomScreenModule<CitiesRoute>(route) {
 
         @Provides
         fun provideViewModel(
             viewModelStore: ViewModelStore,
-            provider: Provider<MapViewModelImpl>,
-            route: MapRoute
-        ): MapViewModel {
+            provider: Provider<CitiesViewModelImpl>,
+            route: CitiesRoute
+        ): CitiesViewModel {
             return ViewModelProvider(viewModelStore, ProviderViewModelFactory(provider)).get(
                 route.getId(),
-                MapViewModelImpl::class.java
+                CitiesViewModelImpl::class.java
             )
         }
     }
 
-    fun inject(fragment: MapFragmentView) {
+    fun inject(fragment: CitiesFragmentView) {
         val activity = fragment.activity
         val activityComponent = DaggerActivityComponent.builder()
             .appComponent((activity?.application as App).appComponent)
             .activityModule(ActivityModule())
             .build()
 
-        DaggerMapScreenConfigurator_MapComponent.builder()
+        DaggerCitiesScreenConfigurator_CitiesComponent.builder()
             .activityComponent(activityComponent)
             .viewModelStoreModule(ViewModelStoreModule(fragment.viewModelStore))
-            .mapModule(MapModule(MapRoute()))
+            .citiesModule(CitiesModule(CitiesRoute()))
             .build()
             .inject(fragment)
     }
