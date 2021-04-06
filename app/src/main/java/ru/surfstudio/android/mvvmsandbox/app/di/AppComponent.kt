@@ -10,7 +10,7 @@ import javax.inject.Singleton
     modules = [
         AppModule::class,
         NavigationModule::class,
-        RetrofitModule::class,
+        NetworkModule::class,
         CatalogModule::class
     ]
 )

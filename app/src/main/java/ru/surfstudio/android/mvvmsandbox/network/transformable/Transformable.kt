@@ -1,6 +1,8 @@
 package ru.surfstudio.android.mvvmsandbox.network.transformable
 
-interface Transformable<T> {
+import ru.surfstudio.android.mvvmsandbox.network.response.BaseResponse
+
+interface Transformable<T> : BaseResponse {
 
     fun transform(): T
 }
