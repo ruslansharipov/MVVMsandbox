@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.interaction.di
+package ru.surfstudio.android.mvvmsandbox.interaction.catalog.di
 
 import dagger.Module
 import dagger.Provides
