@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.network
+package ru.surfstudio.android.mvvmsandbox.util
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

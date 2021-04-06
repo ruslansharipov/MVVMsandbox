@@ -5,14 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.surfstudio.android.core.mvp.binding.rx.request.Request
 import ru.surfstudio.android.mvvmsandbox.domain.Category
 import ru.surfstudio.android.mvvmsandbox.feature.products.ProductsRoute
 import ru.surfstudio.android.mvvmsandbox.interaction.catalog.CatalogInteractor
 import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
-import ru.surfstudio.android.mvvmsandbox.network.request
+import ru.surfstudio.android.mvvmsandbox.util.request
 import ru.surfstudio.android.navigation.command.fragment.Replace
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import javax.inject.Inject
@@ -36,7 +35,6 @@ class CategoriesViewModel @Inject constructor(
         if (subcategories == null) {
             categories.value = Request.Loading()
             viewModelScope.launch {
-                delay(1000)
                 categories.value = request { catalogInteractor.getCategories() }
             }
         } else {

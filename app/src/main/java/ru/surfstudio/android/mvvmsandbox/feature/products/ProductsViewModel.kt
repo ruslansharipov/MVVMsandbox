@@ -16,7 +16,7 @@ import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
 import ru.surfstudio.android.mvvmsandbox.domain.Product
 import ru.surfstudio.android.mvvmsandbox.interaction.catalog.CatalogInteractor
 import ru.surfstudio.android.mvvmsandbox.util.RequestMappers
-import ru.surfstudio.android.mvvmsandbox.network.requestFlow
+import ru.surfstudio.android.mvvmsandbox.util.requestFlow
 import ru.surfstudio.android.mvvmsandbox.pagination.PaginationBundle
 import javax.inject.Inject
 

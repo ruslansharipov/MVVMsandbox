@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(
 ): ViewModel(), IMainViewModel, NavigationViewModel {
 
     init {
-        Replace(MapRoute()).execute()
+        Replace(CategoriesRoute()).execute()
     }
 
     override fun onBackPress() {

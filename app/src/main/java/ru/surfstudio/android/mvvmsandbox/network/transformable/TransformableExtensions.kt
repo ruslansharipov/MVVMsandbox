@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.network
+package ru.surfstudio.android.mvvmsandbox.network.transformable
 
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
 import ru.surfstudio.android.mvvmsandbox.domain.Pagination
