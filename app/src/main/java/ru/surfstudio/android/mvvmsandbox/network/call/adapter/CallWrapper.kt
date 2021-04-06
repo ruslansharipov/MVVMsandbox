@@ -16,10 +16,6 @@ internal class CallWrapper<T>(
         private val errorConverter: NetworkErrorConverter
 ) : Call<T> {
 
-    override fun clone(): Call<T> = call.clone()
-
-    override fun execute(): Response<T> = call.execute()
-
     override fun enqueue(callback: Callback<T>) {
         call.enqueue(object : Callback<T> {
 
@@ -38,6 +34,10 @@ internal class CallWrapper<T>(
             }
         })
     }
+
+    override fun clone(): Call<T> = call.clone()
+
+    override fun execute(): Response<T> = call.execute()
 
     override fun isExecuted(): Boolean = call.isExecuted
 
