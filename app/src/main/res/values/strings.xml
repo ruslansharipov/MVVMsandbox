@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MVVM sandbox</string>
-    <string name="permission_dialog_title">Дать разрешение?</string>
-    <string name="permission_dialog_negative_title">Нет</string>
-    <string name="permission_dialog_positive_title">Да</string>
+
+    <string name="error_no_internet">Нет интернета</string>
+    <string name="error_other">Возникла ошибка</string>
+    <string name="retry_btn">Повторить</string>
 </resources>
