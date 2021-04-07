@@ -74,7 +74,7 @@ class CitiesViewModelImpl @Inject constructor(
 
     private suspend fun handleCitiesError(bundle: CitiesRequestBundle) {
         Log.d(TAG, "bundle.hasErrors = ${bundle.hasErrors}")
-        if (!bundle.isLoading && bundle.hasErrors) {
+        if (!bundle.isLoading && bundle.hasAnyData && bundle.hasErrors) {
             val ruError = bundle.ruCities.getErrorOrNull()
             val byError = bundle.byCities.getErrorOrNull()
             val kzError = bundle.kzCities.getErrorOrNull()

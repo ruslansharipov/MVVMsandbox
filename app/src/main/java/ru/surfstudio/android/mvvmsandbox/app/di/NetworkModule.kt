@@ -73,9 +73,9 @@ class NetworkModule {
     ): OkHttpClient {
         return OkHttpClient.Builder()
                 .addNetworkInterceptor(loggingInterceptor)
-                .connectTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
+//                .connectTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
+//                .readTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
+//                .writeTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
                 .build()
     }
 }
