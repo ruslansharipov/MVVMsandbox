@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.surfstudio.android.core.mvp.binding.rx.request.data.RequestUi
@@ -36,10 +37,28 @@ class CitiesViewModelImpl @Inject constructor(
         loadCities()
     }
 
+    /**
+     * В этом методе три запроса оборачиваются в requestFlow - аналог нашего Observable.asRequest
+     * который эмитит Request.Loading перед началом запроса, Request.Success если данные получены и
+     * Request.Error если возникла ошибка.
+     *
+     * Данные о состоянии трех запросов оборачиваются в CitiesRequestBundle, который содержит методы
+     * для отслеживания состояния запросов.
+     *
+     * Этот бандл обрабатывается в следующих методах
+     * 1. handleCitiesError - здесь мы проверяем, что все три запроса завершены. И если данные в
+     * каком-то из них были получены, но также в каком-то из запросов была получена ошибка - мы эту
+     * ошибку вывозим в тост
+     * 2. handleCitiesState - в этом методе мы трансформируем данные из бандла в RequestUi,
+     * комбинируя списки городов, которые пришли и преобразуя состояния запросов в PlaceholderState
+     */
     private fun loadCities() {
         viewModelScope.launch {
             combine(
-                    requestFlow { citiesInteractor.getCities("RU") },
+                    requestFlow {
+                        delay(2000) // иммитируем долгую загрузку
+                        citiesInteractor.getCities("RU")
+                    },
                     requestFlow { citiesInteractor.getCities("BY") },
                     requestFlow { citiesInteractor.getCities("KZ") }
             ) { ruRequest, byRequest, kzRequest ->
