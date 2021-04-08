@@ -36,88 +36,6 @@ class ProductsViewModel @Inject constructor(
         loadProducts(products.value?.data?.list?.nextPage ?: 1)
     }
 
-    override fun onFavoriteClick(product: Product) {
-        viewModelScope.launch {
-            requestFlow {
-                if (product.addedToWishlist) {
-                    catalogInteractor.removeFavorite(product.code)
-                } else {
-                    catalogInteractor.addFavorite(product.code)
-                }
-            }
-                .flowOn(Dispatchers.IO)
-                .collect { request: Request<Unit> ->
-                    updateFavoriteStatus(request, product.code, !product.addedToWishlist)
-                    reactOnFavoriteRequest(request, product.code, !product.addedToWishlist)
-                }
-        }
-    }
-
-    private fun updateFavoriteStatus(
-        request: Request<Unit>,
-        productCode: String,
-        addedToWishList: Boolean
-    ) {
-        val currentValue = products.value
-        products.value = when (request) {
-            is Request.Loading -> currentValue?.copy(
-                data = currentValue.data?.copy(
-                    list = currentValue.data?.list?.changeProductWith(productCode) {
-                        it.copy(addedToWishlist = addedToWishList)
-                    }
-                )
-            )
-            is Request.Error -> currentValue?.copy(
-                data = currentValue.data?.copy(
-                    list = currentValue.data?.list?.changeProductWith(productCode) {
-                        it.copy(addedToWishlist = !addedToWishList)
-                    }
-                )
-            )
-            is Request.Success -> {
-                products.value
-            }
-        }
-    }
-
-    private fun reactOnFavoriteRequest(
-        request: Request<Unit>,
-        productCode: String,
-        addedToWishList: Boolean
-    ) {
-        when(request){
-            is Request.Success -> {
-                val message = if (addedToWishList) {
-                    "Продукт $productCode добавлен в избранное"
-                } else {
-                    "Продукт $productCode удален из избранного"
-                }
-                toasts.postValue(message)
-            }
-            is Request.Error -> {
-                val message = if (addedToWishList) {
-                    "Ошибка добавления продукта $productCode в избранное"
-                } else {
-                    "Ошибка удаления продукта $productCode из избранного"
-                }
-                toasts.postValue(message)
-            }
-        }
-    }
-
-    private fun DataList<Product>.changeProductWith(
-        code: String,
-        transform: (Product) -> Product
-    ): DataList<Product> {
-        return this.transform { product: Product ->
-            if (product.code == code) {
-                transform(product)
-            } else {
-                product
-            }
-        }
-    }
-
     private fun loadProducts(page: Int) {
         viewModelScope.launch {
             requestFlow { catalogInteractor.getProducts(page) }
@@ -136,5 +54,4 @@ interface IProductsViewModel {
     val products: LiveData<RequestUi<PaginationBundle<Product>>>
     val toasts: LiveData<String>
     fun loadMode()
-    fun onFavoriteClick(product: Product)
 }

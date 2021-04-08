@@ -29,10 +29,7 @@ class ProductsFragmentView : Fragment() {
         PaginationFooterItemController(R.layout.list_item_pagination_footer),
         { viewModel.loadMode() }
     )
-    private val productController = ProductViewController(
-        onProductClick = { }, // TODO
-        onFavoriteClick = { viewModel.onFavoriteClick(it) }
-    )
+    private lateinit var productController: ProductViewController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +46,8 @@ class ProductsFragmentView : Fragment() {
     }
 
     private fun initViews(view: View) {
+        productController = ProductViewController(this.viewModelStore)
+
         loadingPb = view.findViewById(R.id.products_pb)
         errorTv = view.findViewById(R.id.products_error_tv)
         retryBtn = view.findViewById(R.id.products_retry_btn)
