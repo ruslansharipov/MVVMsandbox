@@ -2,6 +2,7 @@ package ru.surfstudio.standard.application.app.di
 
 import dagger.Component
 import ru.surfstudio.standard.application.navigation.di.NavigationModule
+import ru.surfstudio.standard.application.network.di.NetworkModule
 import ru.surfstudio.standard.application.network.di.OkHttpModule
 import javax.inject.Singleton
 

@@ -4,6 +4,10 @@ import retrofit2.*
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
+/**
+ * Фабрика для адаптеров запросов.
+ * Конвертирует возникающие по ходу запросов ошибки используя [errorConverter]
+ */
 class CallAdapterFactory(
     private val errorConverter: NetworkErrorConverter
 ) : CallAdapter.Factory() {
