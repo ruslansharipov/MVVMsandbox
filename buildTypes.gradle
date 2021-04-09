@@ -1,0 +1,40 @@
+//Данный файл описывает типы сборок
+
+apply from: '../keystore/signingConfigs.gradle'
+apply from: '../config.gradle'
+
+android {
+
+    buildTypes {
+        //todo настроить типы сборки
+        debug {
+            signingConfig signingConfigs.test
+            minifyEnabled false
+            debuggable = true
+            applicationIdSuffix meta.debugVersionNameSuffix
+            resValue "string", "app_name", "Template Debug" //todo fix debug app name
+        }
+        qa {
+            signingConfig signingConfigs.test
+            minifyEnabled true
+            debuggable = true
+            applicationIdSuffix meta.qaVersionNameSuffix
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
+            // сопоставлеие buildType.qa к buildType.release для корректного подключения локального android-standard
+            matchingFallbacks = ['release']
+            resValue "string", "app_name", "Template QA" //todo fix qa app name
+
+            /* todo uncoment for real app
+            firebaseAppDistribution {
+                groups="Surf"
+            }*/
+        }
+        release {
+            signingConfig signingConfigs.test //todo заменить на signingConfigs.release
+            multiDexEnabled false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
+            matchingFallbacks = ['release', 'qa']
+        }
+    }
+}

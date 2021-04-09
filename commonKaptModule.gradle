@@ -1,0 +1,10 @@
+/*
+* Dagger 2 & kapt.
+* Should be applied to every module with DI included.
+*/
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    implementation di.dagger
+    kapt di.daggerKapt
+}

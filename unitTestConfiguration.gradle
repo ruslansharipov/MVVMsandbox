@@ -1,0 +1,13 @@
+apply plugin: 'kotlin-kapt'
+apply from: '../unitTestTaskExtensions.gradle'
+
+android.testOptions {
+    unitTests.all {
+        useJUnitPlatform()
+    }
+}
+
+dependencies {
+    testImplementation test.kotest
+    testImplementation test.mockk
+}
