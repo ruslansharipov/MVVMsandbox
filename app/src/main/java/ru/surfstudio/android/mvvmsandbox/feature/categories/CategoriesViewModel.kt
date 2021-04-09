@@ -12,6 +12,7 @@ import ru.surfstudio.android.mvvmsandbox.feature.products.ProductsRoute
 import ru.surfstudio.android.mvvmsandbox.interaction.catalog.CatalogInteractor
 import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
 import ru.surfstudio.android.mvvmsandbox.util.request
+import ru.surfstudio.android.navigation.command.dialog.Show
 import ru.surfstudio.android.navigation.command.fragment.Replace
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import javax.inject.Inject
@@ -44,12 +45,11 @@ class CategoriesViewModel @Inject constructor(
 
     override fun categoryClick(category: Category) {
         val children = category.children
-        val route = if (children.isNotEmpty()) {
-            CategoriesRoute(category)
+        if (children.isNotEmpty()) {
+            Replace(CategoriesRoute(category)).execute()
         } else {
-            ProductsRoute()
+            Show(ProductsRoute()).execute()
         }
-        Replace(route).execute()
     }
 
     override fun onCleared() {

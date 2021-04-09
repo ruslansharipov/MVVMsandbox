@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import ru.surfstudio.android.mvvmsandbox.feature.products.ProductsRoute
 import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
 import ru.surfstudio.android.navigation.command.activity.Finish
+import ru.surfstudio.android.navigation.command.dialog.Show
 import ru.surfstudio.android.navigation.command.fragment.RemoveLast
-import ru.surfstudio.android.navigation.command.fragment.Replace
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import ru.surfstudio.android.navigation.provider.ActivityNavigationProvider
 import javax.inject.Inject
@@ -17,7 +17,7 @@ class MainViewModel @Inject constructor(
 ): ViewModel(), IMainViewModel, NavigationViewModel {
 
     init {
-        Replace(ProductsRoute()).execute()
+        Show(ProductsRoute()).execute()
     }
 
     override fun onBackPress() {

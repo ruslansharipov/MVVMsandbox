@@ -57,6 +57,7 @@ dependencies {
 
     def daggerVersion = '2.27'
     implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     implementation "javax.inject:javax.inject:1"
 

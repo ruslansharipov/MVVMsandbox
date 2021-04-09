@@ -1,7 +1,9 @@
 package ru.surfstudio.android.mvvmsandbox.widget
 
+import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -50,7 +52,7 @@ class ProductWidget @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        coroutineScope = (context as LifecycleOwner).lifecycle.coroutineScope
+        coroutineScope = (getActivity() as LifecycleOwner).lifecycle.coroutineScope
 
         productJob?.cancel()
         productJob = viewModel.productState.bindTo { product: Product ->
@@ -73,5 +75,13 @@ class ProductWidget @JvmOverloads constructor(
 
     fun bindData(viewModelStore: ViewModelStore, initialData: Product) {
         ProductWidgetConfigurator().inject(viewModelStore, initialData, this)
+    }
+}
+
+fun View.getActivity(): Activity? {
+    return when (val context = context) {
+        is Activity -> context
+        is ContextThemeWrapper -> context.baseContext as Activity?
+        else -> null
     }
 }

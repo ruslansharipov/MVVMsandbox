@@ -1,6 +1,5 @@
 package ru.surfstudio.android.mvvmsandbox.widget
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import dagger.Component
@@ -49,9 +48,8 @@ class ProductWidgetConfigurator {
     }
 
     fun inject(viewModelStore: ViewModelStore, product: Product, view: ProductWidget) {
-        val activity = view.context as AppCompatActivity?
         val activityComponent = DaggerActivityComponent.builder()
-                .appComponent((activity?.application as App).appComponent)
+                .appComponent((view.context.applicationContext as App).appComponent)
                 .activityModule(ActivityModule())
                 .build()
 

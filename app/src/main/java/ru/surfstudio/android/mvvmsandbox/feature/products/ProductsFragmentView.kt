@@ -9,12 +9,16 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.surfstudio.android.easyadapter.pagination.EasyPaginationAdapter
 import ru.surfstudio.android.mvvmsandbox.R
+import ru.surfstudio.android.mvvmsandbox.configurator.Configurator
+import ru.surfstudio.android.mvvmsandbox.configurator.HasConfigurator
+import ru.surfstudio.android.mvvmsandbox.configurator.Injectable
 import ru.surfstudio.android.mvvmsandbox.pagination.PaginationFooterItemController
 import javax.inject.Inject
 
-class ProductsFragmentView : Fragment() {
+class ProductsFragmentView : BottomSheetDialogFragment(), HasConfigurator, Injectable {
 
     @Inject
     lateinit var viewModel: IProductsViewModel
@@ -31,6 +35,8 @@ class ProductsFragmentView : Fragment() {
     )
     private lateinit var productController: ProductViewController
 
+    override fun createConfigurator() = ProductsScreenConfigurator(this)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,7 +46,6 @@ class ProductsFragmentView : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        ProductsScreenConfigurator().inject(this)
         initViews(view)
         bindViews()
     }

@@ -9,6 +9,8 @@ import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityComponent
 import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityModule
 import ru.surfstudio.android.mvvmsandbox.activity.di.DaggerActivityComponent
 import ru.surfstudio.android.mvvmsandbox.app.App
+import ru.surfstudio.android.mvvmsandbox.configurator.Configurator
+import ru.surfstudio.android.mvvmsandbox.configurator.ScreenComponent
 import ru.surfstudio.android.mvvmsandbox.feature.di.CustomScreenModule
 import ru.surfstudio.android.mvvmsandbox.feature.di.ScreenScope
 import ru.surfstudio.android.mvvmsandbox.feature.di.ViewModelStoreModule
@@ -16,7 +18,7 @@ import ru.surfstudio.android.mvvmsandbox.view_model.ProviderViewModelFactory
 import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule
 import javax.inject.Provider
 
-internal class ProductsScreenConfigurator {
+class ProductsScreenConfigurator(private val target: ProductsFragmentView) : Configurator {
 
     @ScreenScope
     @Component(
@@ -27,9 +29,7 @@ internal class ProductsScreenConfigurator {
             ViewModelStoreModule::class
         ]
     )
-    internal interface ProductsComponent {
-        fun inject(view: ProductsFragmentView)
-    }
+    internal interface ProductsComponent: ScreenComponent
 
     @Module
     internal class ProductsModule(route: ProductsRoute) :
@@ -48,18 +48,17 @@ internal class ProductsScreenConfigurator {
         }
     }
 
-    fun inject(fragment: ProductsFragmentView) {
-        val activity = fragment.activity
+    override fun createComponent(): ScreenComponent {
+        val activity = target.activity
         val activityComponent = DaggerActivityComponent.builder()
             .appComponent((activity?.application as App).appComponent)
             .activityModule(ActivityModule())
             .build()
 
-        DaggerProductsScreenConfigurator_ProductsComponent.builder()
+        return DaggerProductsScreenConfigurator_ProductsComponent.builder()
             .activityComponent(activityComponent)
-            .viewModelStoreModule(ViewModelStoreModule(fragment.viewModelStore))
+            .viewModelStoreModule(ViewModelStoreModule(target.viewModelStore))
             .productsModule(ProductsModule(ProductsRoute()))
             .build()
-            .inject(fragment)
     }
 }
