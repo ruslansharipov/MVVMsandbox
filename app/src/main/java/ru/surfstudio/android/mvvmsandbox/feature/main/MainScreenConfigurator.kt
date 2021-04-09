@@ -12,9 +12,9 @@ import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityComponent
 import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityModule
 import ru.surfstudio.android.mvvmsandbox.activity.di.DaggerActivityComponent
 import ru.surfstudio.android.mvvmsandbox.app.App
-import ru.surfstudio.android.mvvmsandbox.configurator.BindableScreenComponent
+import ru.surfstudio.android.mvvmsandbox.configurator.component.BindableScreenComponent
 import ru.surfstudio.android.mvvmsandbox.configurator.Configurator
-import ru.surfstudio.android.mvvmsandbox.configurator.ScreenComponent
+import ru.surfstudio.android.mvvmsandbox.configurator.component.ScreenComponent
 import ru.surfstudio.android.mvvmsandbox.feature.di.*
 import ru.surfstudio.android.mvvmsandbox.view_model.ProviderViewModelFactory
 import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule

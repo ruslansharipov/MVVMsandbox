@@ -10,7 +10,7 @@ import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityModule
 import ru.surfstudio.android.mvvmsandbox.activity.di.DaggerActivityComponent
 import ru.surfstudio.android.mvvmsandbox.app.App
 import ru.surfstudio.android.mvvmsandbox.configurator.Configurator
-import ru.surfstudio.android.mvvmsandbox.configurator.ScreenComponent
+import ru.surfstudio.android.mvvmsandbox.configurator.component.ScreenComponent
 import ru.surfstudio.android.mvvmsandbox.feature.di.CustomScreenModule
 import ru.surfstudio.android.mvvmsandbox.feature.di.ScreenScope
 import ru.surfstudio.android.mvvmsandbox.feature.di.ViewModelStoreModule
