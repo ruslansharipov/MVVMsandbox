@@ -29,7 +29,7 @@ class ProductsScreenConfigurator(private val target: ProductsFragmentView) : Con
             ViewModelStoreModule::class
         ]
     )
-    internal interface ProductsComponent: ScreenComponent
+    internal interface ProductsComponent: ScreenComponent<ProductsFragmentView>
 
     @Module
     internal class ProductsModule(route: ProductsRoute) :
@@ -48,7 +48,7 @@ class ProductsScreenConfigurator(private val target: ProductsFragmentView) : Con
         }
     }
 
-    override fun createComponent(): ScreenComponent {
+    override fun createComponent(): ScreenComponent<ProductsFragmentView> {
         val activity = target.activity
         val activityComponent = DaggerActivityComponent.builder()
             .appComponent((activity?.application as App).appComponent)

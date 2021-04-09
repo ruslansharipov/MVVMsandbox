@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import ru.surfstudio.android.mvvmsandbox.activity.callbacks.DefaultActivityLifecycleCallbacks
 import ru.surfstudio.android.mvvmsandbox.configurator.HasConfigurator
-import ru.surfstudio.android.mvvmsandbox.configurator.Injectable
+import ru.surfstudio.android.mvvmsandbox.configurator.InjectionTarget
 
 /**
  * Колбеки, предоставляющие зависимости активити
@@ -15,7 +15,7 @@ import ru.surfstudio.android.mvvmsandbox.configurator.Injectable
 class DiActivityCallbacks : DefaultActivityLifecycleCallbacks() {
 
     override fun onActivityCreated(p0: Activity, p1: Bundle?) {
-        if (p0 is HasConfigurator && p0 is Injectable) {
+        if (p0 is HasConfigurator && p0 is InjectionTarget) {
             p0.createConfigurator().configure(p0)
         }
         if (p0 is FragmentActivity) {
@@ -30,7 +30,7 @@ class DiActivityCallbacks : DefaultActivityLifecycleCallbacks() {
 class DiFragmentCallbacks : FragmentManager.FragmentLifecycleCallbacks() {
 
     override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-        if (f is HasConfigurator && f is Injectable) {
+        if (f is HasConfigurator && f is InjectionTarget) {
             f.createConfigurator().configure(f)
         }
     }

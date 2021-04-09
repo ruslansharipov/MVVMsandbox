@@ -6,19 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.surfstudio.android.easyadapter.pagination.EasyPaginationAdapter
 import ru.surfstudio.android.mvvmsandbox.R
-import ru.surfstudio.android.mvvmsandbox.configurator.Configurator
 import ru.surfstudio.android.mvvmsandbox.configurator.HasConfigurator
-import ru.surfstudio.android.mvvmsandbox.configurator.Injectable
+import ru.surfstudio.android.mvvmsandbox.configurator.InjectionTarget
 import ru.surfstudio.android.mvvmsandbox.pagination.PaginationFooterItemController
 import javax.inject.Inject
 
-class ProductsFragmentView : BottomSheetDialogFragment(), HasConfigurator, Injectable {
+class ProductsFragmentView : BottomSheetDialogFragment(), HasConfigurator, InjectionTarget {
 
     @Inject
     lateinit var viewModel: IProductsViewModel

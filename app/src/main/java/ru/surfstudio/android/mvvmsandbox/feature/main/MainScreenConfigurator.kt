@@ -2,6 +2,7 @@ package ru.surfstudio.android.mvvmsandbox.feature.main
 
 import android.app.Application
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import dagger.Component
@@ -11,11 +12,13 @@ import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityComponent
 import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityModule
 import ru.surfstudio.android.mvvmsandbox.activity.di.DaggerActivityComponent
 import ru.surfstudio.android.mvvmsandbox.app.App
+import ru.surfstudio.android.mvvmsandbox.configurator.BindableScreenComponent
 import ru.surfstudio.android.mvvmsandbox.configurator.Configurator
 import ru.surfstudio.android.mvvmsandbox.configurator.ScreenComponent
 import ru.surfstudio.android.mvvmsandbox.feature.di.*
 import ru.surfstudio.android.mvvmsandbox.view_model.ProviderViewModelFactory
 import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule
+import javax.inject.Inject
 import javax.inject.Provider
 
 class MainScreenConfigurator(
@@ -33,11 +36,22 @@ class MainScreenConfigurator(
                 ViewModelStoreModule::class
             ]
     )
-    internal interface MainComponent : ScreenComponent
+    internal interface MainComponent : BindableScreenComponent<MainActivity>
+
+    class MainDummy @Inject constructor() {
+        init {
+            Log.d("MainDummy", "init")
+        }
+    }
 
     @Module
     internal class MainActivityModule(route: MainScreenRoute) :
             CustomScreenModule<MainScreenRoute>(route) {
+
+        @Provides
+        fun provideDummy(dummy: MainDummy): Any {
+            return dummy
+        }
 
         @Provides
         fun provideViewModel(
@@ -52,7 +66,7 @@ class MainScreenConfigurator(
         }
     }
 
-    override fun createComponent(): ScreenComponent {
+    override fun createComponent(): ScreenComponent<MainActivity> {
         val activityComponent = DaggerActivityComponent.builder()
                 .appComponent((application as App).appComponent)
                 .activityModule(ActivityModule())

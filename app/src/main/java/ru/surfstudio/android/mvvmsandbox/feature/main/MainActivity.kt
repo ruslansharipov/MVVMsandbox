@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import ru.surfstudio.android.mvvmsandbox.R
 import ru.surfstudio.android.mvvmsandbox.configurator.HasConfigurator
-import ru.surfstudio.android.mvvmsandbox.configurator.Injectable
+import ru.surfstudio.android.mvvmsandbox.configurator.InjectionTarget
 import ru.surfstudio.android.navigation.provider.container.FragmentNavigationContainer
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), FragmentNavigationContainer, HasConfigurator, Injectable {
+class MainActivity : AppCompatActivity(), FragmentNavigationContainer, HasConfigurator, InjectionTarget {
 
     override val containerId: Int = R.id.main_fragment_container
 
