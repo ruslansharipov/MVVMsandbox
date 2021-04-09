@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.activity.di
+package ru.surfstudio.standard.ui.activity.di
 
 
 interface ActivityProxyDependencies {

@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.util
+package ru.surfstudio.standard.ui.request
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

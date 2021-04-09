@@ -1,4 +1,4 @@
-package ru.surfstudio.android.mvvmsandbox.lifecycle
+package ru.surfstudio.standard.ui.lifecycle
 
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
