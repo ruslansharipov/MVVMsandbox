@@ -2,8 +2,7 @@ package ru.surfstudio.standard.f_splash
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import ru.surfstudio.standard.base.flow.CompletableFlow
@@ -30,7 +29,7 @@ internal class SplashViewModel @Inject constructor(
             delay(TRANSITION_DELAY_MS)
         }
         val worker = initializeAppInteractor.initialize()
-        return merge(delayFlow, worker).io()
+        return delayFlow.zip(worker){ _, _ ->  }.io().take(1)
     }
 
     private fun openNextScreen() {
