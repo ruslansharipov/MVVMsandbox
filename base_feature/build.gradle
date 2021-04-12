@@ -14,7 +14,7 @@ dependencies {
 //    implementation project(":i-auth")
     implementation project(":i-network")
     implementation project(":i-token")
-//    implementation project(":i-initialization")
+    implementation project(":i-initialization")
 //    implementation project(":i-session")
 
 //    api rxBinding4.core

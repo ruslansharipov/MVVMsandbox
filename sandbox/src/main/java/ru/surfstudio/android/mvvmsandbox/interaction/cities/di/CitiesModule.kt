@@ -4,13 +4,13 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import ru.surfstudio.android.mvvmsandbox.interaction.cities.CitiesApi
-import javax.inject.Singleton
+import ru.surfstudio.android.dagger.scope.PerApplication
 
 @Module
 class CitiesModule {
 
     @Provides
-    @Singleton
+    @PerApplication
     fun providesCitiesApi(retrofit: Retrofit) : CitiesApi {
         return retrofit.create(CitiesApi::class.java)
     }

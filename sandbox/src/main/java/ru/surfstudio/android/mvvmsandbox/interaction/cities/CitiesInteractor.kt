@@ -2,9 +2,9 @@ package ru.surfstudio.android.mvvmsandbox.interaction.cities
 
 import ru.surfstudio.android.mvvmsandbox.domain.City
 import javax.inject.Inject
-import javax.inject.Singleton
+import ru.surfstudio.android.dagger.scope.PerApplication
 
-@Singleton
+@PerApplication
 class CitiesInteractor @Inject constructor(
         private val citiesApi: CitiesApi
 ) {

@@ -1,8 +1,9 @@
 package ru.surfstudio.standard.i_initialization
 
-import io.reactivex.Completable
 import ru.surfstudio.android.app.migration.AppMigrationManager
 import ru.surfstudio.android.dagger.scope.PerApplication
+import ru.surfstudio.standard.base.flow.CompletableFlow
+import ru.surfstudio.standard.base.flow.completableFlow
 import javax.inject.Inject
 
 /**
@@ -18,7 +19,9 @@ class InitializeAppInteractor @Inject constructor(
      *
      * @return observable, который всегда завершается успешно
      */
-    fun initialize(): Completable {
-        return appMigrationManager.tryMigrateApp()
+    fun initialize(): CompletableFlow {
+        return completableFlow {
+            appMigrationManager.tryMigrateApp()
+        }
     }
 }

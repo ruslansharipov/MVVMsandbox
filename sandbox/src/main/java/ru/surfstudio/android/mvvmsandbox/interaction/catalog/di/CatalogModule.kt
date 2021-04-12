@@ -4,13 +4,13 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import ru.surfstudio.android.mvvmsandbox.interaction.catalog.CatalogApi
-import javax.inject.Singleton
+import ru.surfstudio.android.dagger.scope.PerApplication
 
 @Module
 class CatalogModule {
 
     @Provides
-    @Singleton
+    @PerApplication
     fun provideCatalogApi(retrofit: Retrofit): CatalogApi {
         return retrofit.create(CatalogApi::class.java)
     }

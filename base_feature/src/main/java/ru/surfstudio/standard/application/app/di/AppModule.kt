@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import ru.surfstudio.android.dagger.scope.PerApplication
 
 @Module
 class AppModule(
@@ -12,10 +12,10 @@ class AppModule(
 ) {
 
     @Provides
-    @Singleton
+    @PerApplication
     internal fun provideContext(): Context = app
 
     @Provides
-    @Singleton
+    @PerApplication
     internal fun provideApp(): Application = app
 }

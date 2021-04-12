@@ -5,9 +5,9 @@ import ru.surfstudio.android.mvvmsandbox.domain.Category
 import ru.surfstudio.android.mvvmsandbox.domain.Product
 import ru.surfstudio.android.mvvmsandbox.network.transformable.transformCollection
 import javax.inject.Inject
-import javax.inject.Singleton
+import ru.surfstudio.android.dagger.scope.PerApplication
 
-@Singleton
+@PerApplication
 class CatalogInteractor @Inject constructor(
     private val catalogApi: CatalogApi
 ) {
