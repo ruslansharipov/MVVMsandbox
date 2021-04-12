@@ -47,4 +47,4 @@ internal class SplashViewModel @Inject constructor(
     }
 }
 
-interface ISplashViewModel
+internal interface ISplashViewModel
