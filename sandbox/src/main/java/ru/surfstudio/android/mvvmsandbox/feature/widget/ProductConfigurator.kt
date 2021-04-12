@@ -5,25 +5,26 @@ import androidx.lifecycle.ViewModelStore
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityComponent
-import ru.surfstudio.android.mvvmsandbox.activity.di.ActivityModule
+import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.android.mvvmsandbox.activity.di.DaggerActivityComponent
-import ru.surfstudio.android.mvvmsandbox.app.App
 import ru.surfstudio.android.mvvmsandbox.domain.Product
-import ru.surfstudio.android.mvvmsandbox.feature.di.ScreenScope
-import ru.surfstudio.android.mvvmsandbox.feature.di.ViewModelStoreModule
-import ru.surfstudio.android.mvvmsandbox.view_model.ProviderViewModelFactory
-import ru.surfstudio.android.mvvmsandbox.view_model.di.ViewModelFactoryModule
+import ru.surfstudio.standard.application.app.App
+import ru.surfstudio.standard.ui.activity.di.ActivityComponent
+import ru.surfstudio.standard.ui.activity.di.ActivityModule
+import ru.surfstudio.standard.ui.mvvm.ProviderViewModelFactory
+import ru.surfstudio.standard.ui.screen.di.CustomArgsModule
+import ru.surfstudio.standard.ui.screen.di.ViewModelStoreModule
+import ru.surfstudio.standard.ui.widget.ProductViewModel
+import ru.surfstudio.standard.ui.widget.ProductViewModelImpl
 import javax.inject.Provider
 
 class ProductWidgetConfigurator {
 
-    @ScreenScope
+    @PerScreen
     @Component(
             dependencies = [ActivityComponent::class],
             modules = [
                 ProductModule::class,
-                ViewModelFactoryModule::class,
                 ViewModelStoreModule::class
             ]
     )
@@ -36,9 +37,9 @@ class ProductWidgetConfigurator {
 
         @Provides
         fun provideViewModel(
-                viewModelStore: ViewModelStore,
-                provider: Provider<ProductViewModelImpl>,
-                product: Product
+            viewModelStore: ViewModelStore,
+            provider: Provider<ProductViewModelImpl>,
+            product: Product
         ): ProductViewModel {
             return ViewModelProvider(viewModelStore, ProviderViewModelFactory(provider)).get(
                     product.code,

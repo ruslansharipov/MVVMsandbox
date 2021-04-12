@@ -36,22 +36,11 @@ class MainScreenConfigurator(
                 ViewModelStoreModule::class
             ]
     )
-    internal interface MainComponent : BindableScreenComponent<MainActivity>
-
-    class MainDummy @Inject constructor() {
-        init {
-            Log.d("MainDummy", "init")
-        }
-    }
+    internal interface MainComponent : ScreenComponent<MainActivity>
 
     @Module
     internal class MainActivityModule(route: MainScreenRoute) :
             CustomScreenModule<MainScreenRoute>(route) {
-
-        @Provides
-        fun provideDummy(dummy: MainDummy): Any {
-            return dummy
-        }
 
         @Provides
         fun provideViewModel(

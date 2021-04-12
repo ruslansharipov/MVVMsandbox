@@ -18,6 +18,7 @@ import ru.surfstudio.android.imageloader.ImageLoader
 import ru.surfstudio.android.mvvmsandbox.R
 import ru.surfstudio.android.mvvmsandbox.domain.Product
 import ru.surfstudio.android.mvvmsandbox.lifecycle.FlowObserver
+import ru.surfstudio.standard.ui.widget.ProductViewModel
 import javax.inject.Inject
 
 class ProductWidget @JvmOverloads constructor(

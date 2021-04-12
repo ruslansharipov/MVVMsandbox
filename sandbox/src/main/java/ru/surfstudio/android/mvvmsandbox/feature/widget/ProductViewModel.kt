@@ -1,21 +1,17 @@
-package ru.surfstudio.android.mvvmsandbox.widget
+package ru.surfstudio.standard.ui.widget
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.surfstudio.android.core.mvp.binding.rx.request.Request
-import ru.surfstudio.android.mvvmsandbox.domain.Product
-import ru.surfstudio.android.mvvmsandbox.feature.di.ScreenScope
-import ru.surfstudio.android.mvvmsandbox.interaction.catalog.CatalogInteractor
-import ru.surfstudio.android.mvvmsandbox.navigation.view.model.NavigationViewModel
-import ru.surfstudio.android.mvvmsandbox.util.requestFlow
+import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
+import ru.surfstudio.standard.ui.mvvm.view_model.NavigationViewModel
 import javax.inject.Inject
 
-@ScreenScope
+@PerScreen
 class ProductViewModelImpl @Inject constructor(
         initialProduct: Product,
         override val navCommandExecutor: AppCommandExecutor,
