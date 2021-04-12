@@ -35,6 +35,7 @@ android {
 dependencies {
     implementation project(":i-push-notification")
     implementation project(":f-splash")
+    implementation project(":f-main")
 
     implementation lang.kotlinStdLib
     implementation lang.jetbrainsAnnotations

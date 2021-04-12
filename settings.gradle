@@ -11,7 +11,7 @@ include ":app",
 //        ":i-auth",
         ":i-push-notification",
 //        ":f-auth",
-//        ":f-main",
+        ":f-main",
         ":f-debug",
         ":f-splash",
         ":f-debug-no-op"

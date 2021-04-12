@@ -4,11 +4,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import ru.surfstudio.android.navigation.command.activity.Replace
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import ru.surfstudio.standard.base.flow.CompletableFlow
 import ru.surfstudio.standard.base.flow.completableFlow
 import ru.surfstudio.standard.i_initialization.InitializeAppInteractor
 import ru.surfstudio.standard.ui.mvvm.view_model.BaseViewModel
+import ru.surfstudio.standard.ui.navigation.MainRoute
 import javax.inject.Inject
 
 internal class SplashViewModel @Inject constructor(
@@ -33,7 +35,7 @@ internal class SplashViewModel @Inject constructor(
     }
 
     private fun openNextScreen() {
-        // TODO Переход на следующий экран
+        Replace(MainRoute()).execute()
     }
 
     companion object {
