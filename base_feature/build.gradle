@@ -10,15 +10,9 @@ dependencies {
     debugImplementation project(":f-debug")
     qaImplementation project(":f-debug")
 
-//    implementation project(":i-push-notification")
-//    implementation project(":i-auth")
     implementation project(":i-network")
     implementation project(":i-token")
     implementation project(":i-initialization")
-//    implementation project(":i-session")
-
-//    api rxBinding4.core
-//    api rxBinding4.material
 
     api(firebase.crashlytics) {
         transitive = true
@@ -26,7 +20,6 @@ dependencies {
 
     implementation debug.anrWatchDog
     implementation debug.timber
-    implementation debug.rxJava2Debug
 
     implementation test.kotest
     implementation test.mockk

@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 //apply plugin: 'com.google.firebase.crashlytics' todo uncoment for real app
 //apply plugin: 'com.google.firebase.appdistribution' todo uncoment for real app
@@ -17,10 +16,10 @@ apply from: '../androidTestConfiguration.gradle'
 android {
 
     defaultConfig {
-        applicationId meta.applicationId
+        applicationId app.applicationId
 
-        versionCode meta.versionCode
-        versionName meta.versionName
+        versionCode app.versionCode
+        versionName app.versionName
 
         //setProperty("archivesBaseName", "$applicationName-$versionName-($versionCode)") //todo uncomment for real app
 
