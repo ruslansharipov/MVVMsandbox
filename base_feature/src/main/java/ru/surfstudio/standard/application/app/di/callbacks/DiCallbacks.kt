@@ -6,11 +6,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import ru.surfstudio.standard.ui.activity.callbacks.DefaultActivityLifecycleCallbacks
+import ru.surfstudio.standard.ui.configurator.Configurator
 import ru.surfstudio.standard.ui.configurator.HasConfigurator
 import ru.surfstudio.standard.ui.configurator.InjectionTarget
 
 /**
  * Колбеки, предоставляющие зависимости активити
+ *
+ * Работают совместно с интерфейсами [HasConfigurator] и [InjectionTarget]
+ * Если активити их реализует, то создается конфигуратор и вызывается метод [Configurator.configure]
+ *
+ * Также для всех FragmentActivity регистрируются [DiFragmentCallbacks] рекурсивно предоставляющие
+ * зависимости фрагментам по аналогичному принципу
  */
 class DiActivityCallbacks : DefaultActivityLifecycleCallbacks() {
 
