@@ -1,6 +1,6 @@
 ext {
     //todo инструкция инициализации https://jirasurf.atlassian.net/wiki/spaces/ANDDEP/pages/1307901989
-    applicationName = "AndroidStandard"
+    applicationName = "template"
 
     app = [
             applicationId: "ru.surfstudio.android.template",
@@ -10,8 +10,8 @@ ext {
 
     meta = [
             minSdkVersion         : 21,
-            targetSdkVersion      : 28,
-            compileSdkVersion     : 28,
+            targetSdkVersion      : 30,
+            compileSdkVersion     : 30,
             debugVersionNameSuffix: ".debug",
             qaVersionNameSuffix   : ".qa"
     ]

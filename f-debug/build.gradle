@@ -1,6 +1,7 @@
 apply from: '../commonModule.gradle'
 
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     implementation project(":base")
