@@ -9,4 +9,9 @@
         android:layout_gravity="center"
         android:text="MAIN" />
 
+    <ru.surfstudio.standard.f_main.widget.ProductWidget
+        android:id="@+id/main_product_widget"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
 </FrameLayout>

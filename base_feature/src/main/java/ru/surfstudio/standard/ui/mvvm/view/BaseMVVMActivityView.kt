@@ -8,7 +8,7 @@ import ru.surfstudio.android.template.base_feature.R
 /**
  * Базовый класс Активити, для использования совместно с вью моделью
  */
-abstract class BaseMVVMActivityView: AppCompatActivity(), MVVMView {
+abstract class BaseMVVMActivityView: AppCompatActivity(), LifecycleMVVMView {
 
     /**
      * @return activity rootView

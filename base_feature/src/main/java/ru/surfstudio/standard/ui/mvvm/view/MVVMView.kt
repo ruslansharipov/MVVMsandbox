@@ -9,7 +9,11 @@ import ru.surfstudio.standard.ui.lifecycle.LifecycleFlowObserver
  * Интерфейс вью для работы с вьюмоделью, расширяющий необходимые интерфейсы для организации
  * внедрения зависимостей и подписок на потоки данных
  */
-interface MVVMView : LifecycleFlowObserver,
-        FlowObserver,
+interface MVVMView : FlowObserver,
         HasConfigurator,
         InjectionTarget
+
+/**
+ * MVVMView с жизненным циклом
+ */
+interface LifecycleMVVMView : MVVMView, LifecycleFlowObserver

@@ -1,6 +1,7 @@
 package ru.surfstudio.standard.ui.configurator
 
 import android.app.Activity
+import android.content.Context
 import android.view.ContextThemeWrapper
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -39,11 +40,7 @@ interface Configurator {
         val activity = when (target) {
             is Fragment -> target.activity
             is Activity -> target
-            is View -> when (val context = target.context) {
-                is Activity -> context
-                is ContextThemeWrapper -> context.baseContext as Activity?
-                else -> null
-            }
+            is View -> target.context.findActivity()
             else -> null
         }
         requireNotNull(activity)
@@ -51,5 +48,16 @@ interface Configurator {
                 .appComponent((activity.application as App).appComponent)
                 .activityModule(ActivityModule())
                 .build()
+    }
+}
+
+/**
+ * Рекурсивный поиск активити и использованием контекста
+ */
+fun Context.findActivity(): Activity? {
+    return when(this){
+        is Activity -> this
+        is ContextThemeWrapper -> baseContext.findActivity()
+        else -> null
     }
 }
