@@ -1,16 +1,16 @@
 package ru.surfstudio.standard.i_network.network
 
 import kotlinx.coroutines.flow.Flow
-import ru.surfstudio.android.connection.ConnectionProvider
+import ru.surfstudio.standard.i_network.network.interactor.BaseNetworkInteractor
+import ru.surfstudio.standard.i_network.network.interactor.ConnectionChecker
 
-class TestNetworkInteractor : BaseNetworkInteractor() {
+class TestNetworkInteractor(
+        override val connectionChecker: ConnectionChecker
+) : BaseNetworkInteractor {
 
-    private val dataSource = TestNetworkDataSource()
-
-    override val connectionChecker: ConnectionChecker = TestConnectionChecker()
-
-    fun getDataWithSimpleCache() : Flow<String> {
-        return hybridQueryWithSimpleCache { dataSource.getData(it) }
-    }
+    fun <T> testHybridQueryProxy(
+            priority: DataStrategy = DataStrategy.CACHE,
+            requestCreator: suspend (queryMode: Int) -> T
+    ): Flow<T> = hybridQueryWithSimpleCache(priority, requestCreator)
 
 }
