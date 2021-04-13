@@ -3,8 +3,8 @@ package ru.surfstudio.standard.application.app.di
 import android.content.Context
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import ru.surfstudio.android.navigation.observer.ScreenResultObserver
-import ru.surfstudio.android.navigation.provider.ActivityNavigationProvider
 import ru.surfstudio.standard.i_initialization.InitializeAppInteractor
+import ru.surfstudio.standard.i_network.network.interactor.ConnectionChecker
 
 /**
  * Интерфейс, объединяющий в себе все зависимости в скоупе [PerApplication]
@@ -16,7 +16,7 @@ interface AppProxyDependencies {
 
     fun screenResultObserver(): ScreenResultObserver
     fun commandExecutor(): AppCommandExecutor
-    fun activityNavigationProvider(): ActivityNavigationProvider
+    fun connectionChecker(): ConnectionChecker
 
     fun initializeAppInteractor(): InitializeAppInteractor
 
