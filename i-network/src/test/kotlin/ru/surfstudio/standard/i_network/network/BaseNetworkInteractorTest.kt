@@ -16,7 +16,7 @@ internal class BaseNetworkInteractorTest : AnnotationSpec() {
     @Test
     fun `returns cached and network data`() = runBlocking {
         val cacheDataList = createInteractor()
-                .testHybridQueryProxy(DataStrategy.CACHE) { dataSource.getDataFromCacheAndNetwork(it) }
+                .hybridQueryWithSimpleCache(DataStrategy.CACHE) { dataSource.getDataFromCacheAndNetwork(it) }
                 .toList()
 
         assertSoftly {
@@ -27,7 +27,7 @@ internal class BaseNetworkInteractorTest : AnnotationSpec() {
     @Test
     fun `returns only network data on auto when connection fast`() = runBlocking {
         val autoDataList = createInteractor()
-                .testHybridQueryProxy(DataStrategy.AUTO) { dataSource.getDataFromCacheAndNetwork(it) }
+                .hybridQueryWithSimpleCache(DataStrategy.AUTO) { dataSource.getDataFromCacheAndNetwork(it) }
                 .toList()
         assertSoftly {
             autoDataList shouldContainExactly listOf(TestNetworkDataSource.NETWORK_DATA)
@@ -37,7 +37,7 @@ internal class BaseNetworkInteractorTest : AnnotationSpec() {
     @Test
     fun `returns cache and network data on auto when connection slow`() = runBlocking {
         val autoDataList = createInteractor(isConnectedFast = false)
-                .testHybridQueryProxy(DataStrategy.AUTO) { dataSource.getDataFromCacheAndNetwork(it) }
+                .hybridQueryWithSimpleCache(DataStrategy.AUTO) { dataSource.getDataFromCacheAndNetwork(it) }
                 .toList()
         assertSoftly {
             autoDataList shouldContainExactly listOf(TestNetworkDataSource.CACHED_DATA, TestNetworkDataSource.NETWORK_DATA)
@@ -47,7 +47,7 @@ internal class BaseNetworkInteractorTest : AnnotationSpec() {
     @Test
     fun `returns only network data`() = runBlocking {
         val dataList = createInteractor()
-                .testHybridQueryProxy { dataSource.getDataWithEmptyCache(it) }
+                .hybridQueryWithSimpleCache { dataSource.getDataWithEmptyCache(it) }
                 .toList()
         assertSoftly {
             dataList shouldContainExactly listOf(TestNetworkDataSource.NETWORK_DATA)
@@ -59,7 +59,7 @@ internal class BaseNetworkInteractorTest : AnnotationSpec() {
         assertThrows<NoInternetException> {
             runBlocking {
                 createInteractor()
-                        .testHybridQueryProxy { dataSource.getFromCacheThrowFromNetwork(it) }
+                        .hybridQueryWithSimpleCache { dataSource.getFromCacheThrowFromNetwork(it) }
                         .toList()
             }
         }
@@ -68,7 +68,7 @@ internal class BaseNetworkInteractorTest : AnnotationSpec() {
     @Test
     fun `returns cached data when not modified`() = runBlocking {
         val dataList = createInteractor()
-                .testHybridQueryProxy(DataStrategy.ONLY_ACTUAL) { queryMode: Int ->
+                .hybridQueryWithSimpleCache(DataStrategy.ONLY_ACTUAL) { queryMode: Int ->
                     dataSource.getFromServerIfModified(queryMode)
                 }.toList()
         assertSoftly {
@@ -80,7 +80,7 @@ internal class BaseNetworkInteractorTest : AnnotationSpec() {
     fun `assert only actual throws with no internet`() {
         assertThrows<NoInternetException> {
             runBlocking {
-                createInteractor().testHybridQueryProxy(DataStrategy.ONLY_ACTUAL) { queryMode: Int ->
+                createInteractor().hybridQueryWithSimpleCache(DataStrategy.ONLY_ACTUAL) { queryMode: Int ->
                     dataSource.throwNoInternetError(queryMode)
                 }.toList()
             }
@@ -90,7 +90,7 @@ internal class BaseNetworkInteractorTest : AnnotationSpec() {
     @Test
     fun `force network request contains network data`() = runBlocking {
         val dataList = createInteractor()
-                .testHybridQueryProxy(DataStrategy.SERVER) { dataSource.getDataFromCacheAndNetwork(it) }
+                .hybridQueryWithSimpleCache(DataStrategy.SERVER) { dataSource.getDataFromCacheAndNetwork(it) }
                 .toList()
         assertSoftly {
             dataList shouldContainExactly listOf(TestNetworkDataSource.NETWORK_DATA)
