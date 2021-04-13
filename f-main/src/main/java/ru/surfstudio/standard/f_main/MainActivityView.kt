@@ -11,7 +11,7 @@ internal class MainActivityView: BaseMVVMActivityView() {
     @Inject
     lateinit var viewModel: MainViewModel
 
-    override fun createConfigurator(): Configurator = MainScreenConfigurator(application, viewModelStore, intent)
+    override fun createConfigurator(): Configurator = MainScreenConfigurator(viewModelStore, intent)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -9,7 +9,7 @@ import ru.surfstudio.standard.ui.mvvm.view.BaseMVVMActivityView
 
 internal class SplashActivityView : BaseMVVMActivityView(), PushHandlingActivity {
 
-    override fun createConfigurator(): Configurator = SplashScreenConfigurator(application, viewModelStore, intent)
+    override fun createConfigurator(): Configurator = SplashScreenConfigurator(viewModelStore, intent)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
