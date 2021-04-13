@@ -1,11 +1,13 @@
 package ru.surfstudio.standard.application.app
 
 import android.app.Application
+import ru.surfstudio.android.logger.Logger
 import ru.surfstudio.android.navigation.provider.callbacks.ActivityNavigationProviderCallbacks
 import ru.surfstudio.standard.application.app.di.AppComponent
 import ru.surfstudio.standard.application.app.di.AppModule
 import ru.surfstudio.standard.application.app.di.DaggerAppComponent
 import ru.surfstudio.standard.application.app.di.callbacks.DiActivityCallbacks
+import ru.surfstudio.standard.application.logger.strategies.local.TimberLoggingStrategy
 
 class App : Application() {
 
@@ -17,9 +19,22 @@ class App : Application() {
             .appModule(AppModule(this))
             .build()
 
-        registerActivityLifecycleCallbacks(DiActivityCallbacks())
+        initLogger()
+        initDiCallbacks()
+        initNavigationCallbacks()
+    }
+
+    private fun initNavigationCallbacks() {
         registerActivityLifecycleCallbacks(
-            appComponent.activityNavigationProvider() as ActivityNavigationProviderCallbacks
+                appComponent.activityNavigationProvider() as ActivityNavigationProviderCallbacks
         )
+    }
+
+    private fun initDiCallbacks() {
+        registerActivityLifecycleCallbacks(DiActivityCallbacks())
+    }
+
+    private fun initLogger() {
+        Logger.addLoggingStrategy(TimberLoggingStrategy())
     }
 }
