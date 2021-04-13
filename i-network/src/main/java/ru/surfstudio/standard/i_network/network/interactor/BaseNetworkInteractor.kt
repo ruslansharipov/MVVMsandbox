@@ -1,15 +1,17 @@
-package ru.surfstudio.standard.i_network.network
+package ru.surfstudio.standard.i_network.network.interactor
 
 import kotlinx.coroutines.flow.*
-import ru.surfstudio.android.connection.ConnectionProvider
+import ru.surfstudio.android.logger.Logger
 import ru.surfstudio.standard.i_network.error.NotModifiedException
+import ru.surfstudio.standard.i_network.network.BaseServerConstants
+import ru.surfstudio.standard.i_network.network.DataStrategy
 
-abstract class BaseNetworkInteractor {
+interface BaseNetworkInteractor {
 
-    protected abstract val connectionChecker: ConnectionChecker
+    val connectionChecker: ConnectionChecker
 
-    protected fun <T> hybridQueryWithSimpleCache(
-            priority: DataStrategy = DataStrategy.DEFAULT_DATA_STRATEGY,
+    fun <T> hybridQueryWithSimpleCache(
+            priority: DataStrategy = DataStrategy.CACHE,
             requestCreator: suspend (queryMode: Int) -> T
     ): Flow<T> {
         return hybridQuery(
@@ -21,7 +23,7 @@ abstract class BaseNetworkInteractor {
         )
     }
 
-    protected fun <T> hybridQuery(
+    fun <T> hybridQuery(
             priority: DataStrategy,
             cacheFlow: Flow<T>,
             requestCreator: suspend (queryMode: Int) -> T
@@ -39,6 +41,14 @@ abstract class BaseNetworkInteractor {
                         emit(requestCreator(queryMode))
                     }
             )
+        }.catch { error ->
+            if (error is CacheExceptionWrapper) {
+                //в случае ошибки получения данных из кеша производим запрос на сервер
+                Logger.e(error.cause, "Error when getting data from cache")
+                emit(requestCreator(BaseServerConstants.QUERY_MODE_FORCE))
+            } else {
+                throw error
+            }
         }
     }
 
@@ -89,17 +99,4 @@ abstract class BaseNetworkInteractor {
      */
     private class CacheExceptionWrapper constructor(cause: Throwable?) : Exception(cause)
 
-}
-
-class ConnectionCheckerProvider(
-        private val provider: ConnectionProvider
-) : ConnectionChecker {
-
-    override val isConnectedFast: Boolean
-        get() = provider.isConnectedFast
-
-}
-
-interface ConnectionChecker {
-    val isConnectedFast: Boolean
 }
