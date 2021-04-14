@@ -6,7 +6,6 @@ import ru.surfstudio.android.navigation.provider.callbacks.ActivityNavigationPro
 import ru.surfstudio.standard.application.app.di.AppComponent
 import ru.surfstudio.standard.application.app.di.AppModule
 import ru.surfstudio.standard.application.app.di.DaggerAppComponent
-import ru.surfstudio.standard.application.app.di.callbacks.DiActivityCallbacks
 import ru.surfstudio.standard.application.logger.strategies.local.TimberLoggingStrategy
 
 class App : Application() {
@@ -20,8 +19,13 @@ class App : Application() {
             .build()
 
         initLogger()
+        initLogCallbacks()
         initDiCallbacks()
         initNavigationCallbacks()
+    }
+
+    private fun initLogCallbacks() {
+        registerActivityLifecycleCallbacks(appComponent.logLifecycleCallbacks())
     }
 
     private fun initNavigationCallbacks() {
@@ -31,7 +35,7 @@ class App : Application() {
     }
 
     private fun initDiCallbacks() {
-        registerActivityLifecycleCallbacks(DiActivityCallbacks())
+        registerActivityLifecycleCallbacks(appComponent.diCallbacks())
     }
 
     private fun initLogger() {

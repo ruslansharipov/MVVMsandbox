@@ -1,4 +1,4 @@
-package ru.surfstudio.standard.application.app.di.callbacks
+package ru.surfstudio.standard.application.app.callbacks.di
 
 import android.app.Activity
 import android.os.Bundle
@@ -19,14 +19,16 @@ import ru.surfstudio.standard.ui.configurator.InjectionTarget
  * Также для всех FragmentActivity регистрируются [DiFragmentCallbacks] рекурсивно предоставляющие
  * зависимости фрагментам по аналогичному принципу
  */
-class DiActivityCallbacks : DefaultActivityLifecycleCallbacks() {
+class DiActivityCallbacks(
+        private val diFragmentCallbacks: DiFragmentCallbacks
+) : DefaultActivityLifecycleCallbacks() {
 
     override fun onActivityCreated(p0: Activity, p1: Bundle?) {
         if (p0 is HasConfigurator && p0 is InjectionTarget) {
             p0.createConfigurator().configure(p0)
         }
         if (p0 is FragmentActivity) {
-            p0.supportFragmentManager.registerFragmentLifecycleCallbacks(DiFragmentCallbacks(), true)
+            p0.supportFragmentManager.registerFragmentLifecycleCallbacks(diFragmentCallbacks, true)
         }
     }
 }
