@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name="ru.surfstudio.standard.f_main.MainActivityView"
+            android:name="ru.surfstudio.standard.f_main.container.MainActivityView"
             android:screenOrientation="portrait" />
     </application>
 </manifest>

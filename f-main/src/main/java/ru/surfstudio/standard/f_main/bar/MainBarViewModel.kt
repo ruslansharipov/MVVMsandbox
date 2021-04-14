@@ -1,11 +1,12 @@
-package ru.surfstudio.standard.f_main
+package ru.surfstudio.standard.f_main.bar
 
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import ru.surfstudio.standard.ui.mvvm.view_model.BaseViewModel
-import javax.inject.Inject
 
-internal class MainViewModel @Inject constructor(
+internal class MainBarViewModel(
         override val navCommandExecutor: AppCommandExecutor
-) : BaseViewModel(), IMainViewModel
+) : BaseViewModel(), IMainBarViewModel {
 
-internal interface IMainViewModel
+}
+
+internal interface IMainBarViewModel

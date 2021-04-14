@@ -8,6 +8,6 @@ class MainRoute() : ActivityRoute() {
     constructor(intent: Intent) : this()
 
     override fun getScreenClassPath(): String {
-        return "ru.surfstudio.standard.f_main.MainActivityView"
+        return "ru.surfstudio.standard.f_main.container.MainActivityView"
     }
 }

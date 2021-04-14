@@ -1,6 +1,7 @@
 package ru.surfstudio.standard.ui.mvvm.view
 
 import ru.surfstudio.standard.ui.configurator.HasConfigurator
+import ru.surfstudio.standard.ui.configurator.HasName
 import ru.surfstudio.standard.ui.configurator.InjectionTarget
 import ru.surfstudio.standard.ui.lifecycle.FlowObserver
 import ru.surfstudio.standard.ui.lifecycle.LifecycleFlowObserver
@@ -16,4 +17,4 @@ interface MVVMView : FlowObserver,
 /**
  * MVVMView с жизненным циклом
  */
-interface LifecycleMVVMView : MVVMView, LifecycleFlowObserver
+interface LifecycleMVVMView : MVVMView, LifecycleFlowObserver, HasName
