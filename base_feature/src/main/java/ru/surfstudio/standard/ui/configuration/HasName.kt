@@ -1,4 +1,4 @@
-package ru.surfstudio.standard.ui.configurator
+package ru.surfstudio.standard.ui.configuration
 
 /**
  * Интерфейс сущности у которой есть имя

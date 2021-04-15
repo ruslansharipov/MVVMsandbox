@@ -12,19 +12,16 @@ import ru.surfstudio.standard.f_splash.SplashActivityView
 import ru.surfstudio.standard.f_splash.SplashRoute
 import ru.surfstudio.standard.f_splash.SplashViewModel
 import ru.surfstudio.standard.ui.activity.di.ActivityComponent
-import ru.surfstudio.standard.ui.configurator.InjectionTarget
-import ru.surfstudio.standard.ui.configurator.Configurator
-import ru.surfstudio.standard.ui.configurator.component.BindableScreenComponent
-import ru.surfstudio.standard.ui.configurator.component.ScreenComponent
+import ru.surfstudio.standard.ui.configuration.configurator.ActivityConfigurator
+import ru.surfstudio.standard.ui.configuration.InjectionTarget
+import ru.surfstudio.standard.ui.configuration.component.BindableScreenComponent
+import ru.surfstudio.standard.ui.configuration.component.ScreenComponent
 import ru.surfstudio.standard.ui.mvvm.ProviderViewModelFactory
 import ru.surfstudio.standard.ui.screen.di.CustomScreenModule
 import ru.surfstudio.standard.ui.screen.di.ViewModelStoreModule
 import javax.inject.Provider
 
-internal class SplashScreenConfigurator(
-        private val viewModelStore: ViewModelStore,
-        private val intent: Intent
-): Configurator {
+internal class SplashScreenConfigurator: ActivityConfigurator() {
 
     @PerScreen
     @Component(
@@ -57,11 +54,11 @@ internal class SplashScreenConfigurator(
         }
     }
 
-    override fun createComponent(activityComponent: ActivityComponent): ScreenComponent<out InjectionTarget> {
+    override fun createComponent(activityComponent: ActivityComponent, viewModelStore: ViewModelStore, args: Intent): ScreenComponent<out InjectionTarget> {
         return DaggerSplashScreenConfigurator_SplashComponent.builder()
                 .activityComponent(activityComponent)
                 .viewModelStoreModule(ViewModelStoreModule(viewModelStore))
-                .splashModule(SplashModule(SplashRoute(intent)))
+                .splashModule(SplashModule(SplashRoute(args)))
                 .build()
     }
 }

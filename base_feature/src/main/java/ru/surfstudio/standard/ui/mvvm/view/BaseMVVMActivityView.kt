@@ -4,11 +4,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import ru.surfstudio.android.template.base_feature.R
+import ru.surfstudio.standard.ui.configuration.HasActivityConfigurator
 
 /**
  * Базовый класс Активити, для использования совместно с вью моделью
  */
-abstract class BaseMVVMActivityView: AppCompatActivity(), LifecycleMVVMView {
+abstract class BaseMVVMActivityView: AppCompatActivity(), LifecycleMVVMView, HasActivityConfigurator {
 
     /**
      * @return activity rootView

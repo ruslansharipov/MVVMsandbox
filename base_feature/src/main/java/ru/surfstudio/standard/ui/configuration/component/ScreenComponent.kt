@@ -1,6 +1,6 @@
-package ru.surfstudio.standard.ui.configurator.component
+package ru.surfstudio.standard.ui.configuration.component
 
-import ru.surfstudio.standard.ui.configurator.InjectionTarget
+import ru.surfstudio.standard.ui.configuration.InjectionTarget
 
 /**
  * Компонент экрана

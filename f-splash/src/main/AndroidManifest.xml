@@ -2,8 +2,7 @@
     package="ru.surfstudio.android.template.f_splash" >
 
     <application>
-        <activity android:name="ru.surfstudio.standard.f_splash.SplashActivityView"
-            android:screenOrientation="portrait">
+        <activity android:name="ru.surfstudio.standard.f_splash.SplashActivityView" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

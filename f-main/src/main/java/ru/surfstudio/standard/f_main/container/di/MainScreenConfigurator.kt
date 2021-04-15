@@ -11,19 +11,16 @@ import ru.surfstudio.standard.f_main.container.IMainViewModel
 import ru.surfstudio.standard.f_main.container.MainActivityView
 import ru.surfstudio.standard.f_main.container.MainViewModel
 import ru.surfstudio.standard.ui.activity.di.ActivityComponent
-import ru.surfstudio.standard.ui.configurator.InjectionTarget
-import ru.surfstudio.standard.ui.configurator.Configurator
-import ru.surfstudio.standard.ui.configurator.component.ScreenComponent
+import ru.surfstudio.standard.ui.configuration.configurator.ActivityConfigurator
+import ru.surfstudio.standard.ui.configuration.InjectionTarget
+import ru.surfstudio.standard.ui.configuration.component.ScreenComponent
 import ru.surfstudio.standard.ui.mvvm.ProviderViewModelFactory
 import ru.surfstudio.standard.ui.navigation.MainRoute
 import ru.surfstudio.standard.ui.screen.di.CustomScreenModule
 import ru.surfstudio.standard.ui.screen.di.ViewModelStoreModule
 import javax.inject.Provider
 
-internal class MainScreenConfigurator(
-        private val viewModelStore: ViewModelStore,
-        private val intent: Intent
-): Configurator {
+internal class MainScreenConfigurator: ActivityConfigurator() {
 
     @PerScreen
     @Component(
@@ -51,11 +48,11 @@ internal class MainScreenConfigurator(
         }
     }
 
-    override fun createComponent(activityComponent: ActivityComponent): ScreenComponent<out InjectionTarget> {
+    override fun createComponent(activityComponent: ActivityComponent, viewModelStore: ViewModelStore, args: Intent): ScreenComponent<out InjectionTarget> {
         return DaggerMainScreenConfigurator_MainComponent.builder()
                 .activityComponent(activityComponent)
                 .viewModelStoreModule(ViewModelStoreModule(viewModelStore))
-                .mainModule(MainModule(MainRoute(intent)))
+                .mainModule(MainModule(MainRoute(args)))
                 .build()
     }
 }

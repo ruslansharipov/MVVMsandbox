@@ -4,7 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import ru.surfstudio.android.logger.Logger
-import ru.surfstudio.standard.ui.configurator.HasName
+import ru.surfstudio.standard.ui.configuration.HasName
 
 /**
  * Наблюдатель жизненного цикла, логирующий изменения состояний

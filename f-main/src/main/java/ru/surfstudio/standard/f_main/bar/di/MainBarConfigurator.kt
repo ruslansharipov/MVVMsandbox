@@ -1,5 +1,6 @@
 package ru.surfstudio.standard.f_main.bar.di
 
+import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import dagger.Component
@@ -11,17 +12,15 @@ import ru.surfstudio.standard.f_main.bar.MainBarFragmentView
 import ru.surfstudio.standard.ui.navigation.MainBarRoute
 import ru.surfstudio.standard.f_main.bar.MainBarViewModel
 import ru.surfstudio.standard.ui.activity.di.ActivityComponent
-import ru.surfstudio.standard.ui.configurator.Configurator
-import ru.surfstudio.standard.ui.configurator.InjectionTarget
-import ru.surfstudio.standard.ui.configurator.component.ScreenComponent
+import ru.surfstudio.standard.ui.configuration.configurator.FragmentConfigurator
+import ru.surfstudio.standard.ui.configuration.InjectionTarget
+import ru.surfstudio.standard.ui.configuration.component.ScreenComponent
 import ru.surfstudio.standard.ui.mvvm.ProviderViewModelFactory
 import ru.surfstudio.standard.ui.screen.di.CustomScreenModule
 import ru.surfstudio.standard.ui.screen.di.ViewModelStoreModule
 import javax.inject.Provider
 
-internal class MainBarScreenConfigurator(
-        private val viewModelStore: ViewModelStore
-) : Configurator {
+internal class MainBarScreenConfigurator : FragmentConfigurator() {
 
     @PerScreen
     @Component(
@@ -49,7 +48,7 @@ internal class MainBarScreenConfigurator(
         }
     }
 
-    override fun createComponent(activityComponent: ActivityComponent): ScreenComponent<out InjectionTarget> {
+    override fun createComponent(activityComponent: ActivityComponent, viewModelStore: ViewModelStore, args: Bundle): ScreenComponent<out InjectionTarget> {
         return DaggerMainBarScreenConfigurator_MainBarComponent.builder()
                 .activityComponent(activityComponent)
                 .viewModelStoreModule(ViewModelStoreModule(viewModelStore))
