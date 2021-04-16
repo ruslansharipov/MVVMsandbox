@@ -25,10 +25,5 @@ internal class MainActivityView : BaseMVVMActivityView(), FragmentNavigationCont
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        val productWidget = findViewById<ProductWidget>(R.id.main_product_widget)
-        productWidget.post {
-            productWidget.bindData(ProductUi("1", 123))
-        }
     }
 }

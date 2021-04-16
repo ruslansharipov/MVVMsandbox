@@ -6,25 +6,18 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.doOnAttach
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.lifecycle.*
 import kotlinx.coroutines.Job
 import ru.surfstudio.android.logger.Logger
 import ru.surfstudio.standard.f_main.R
 import ru.surfstudio.standard.f_main.widget.data.ProductUi
 import ru.surfstudio.standard.ui.configuration.InjectionTarget
-import ru.surfstudio.standard.ui.configuration.configurator.findActivity
 import ru.surfstudio.standard.ui.lifecycle.FlowObserver
 import ru.surfstudio.standard.f_main.widget.di.ProductWidgetConfigurator
 import javax.inject.Inject
 
 /**
  * Пример виджета с вьюмоделью
- *
- *
  */
 class ProductWidget @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -46,21 +39,6 @@ class ProductWidget @JvmOverloads constructor(
 
         priceTv = findViewById(R.id.product_price_tv)
         priceTv.setOnClickListener { viewModel.onFavoriteClick() }
-
-        doOnAttach {
-            coroutineScope = try {
-                findFragment<Fragment>().lifecycleScope
-            } catch (e: Throwable) {
-                (context.findActivity() as AppCompatActivity).lifecycleScope
-            }
-            checkAndBind()
-        }
-    }
-
-    private fun checkAndBind() {
-        if (::viewModel.isInitialized && ::coroutineScope.isInitialized) {
-            bindInternal()
-        }
     }
 
     private fun bindInternal() {
@@ -76,7 +54,7 @@ class ProductWidget @JvmOverloads constructor(
 
     /**
      * При привязке данных инициализируем конфигуратор и конфигурируем вью.
-     * При этом передаем в конфигуратор начальные данные.
+     * При этом передаем в конфигуратор начальные данные, viewModelStore и lifecycleScope.
      * На основе этих данных будет создана вьюмодель виджета и проинициализировано начальное состояние.
      *
      * Если виджет находится в ресайклере то при первом байндинге будет создана вьюмодель и
@@ -88,9 +66,9 @@ class ProductWidget @JvmOverloads constructor(
      *
      * Если виджет не планируется использовать в ресайклере то хранить Job'ы и отменять их не обязательно.
      */
-    fun bindData(initialData: ProductUi) {
-        Logger.d("ProductWidget: bindData")
-        ProductWidgetConfigurator().configure(this, initialData)
-        checkAndBind()
+    fun bindData(initialData: ProductUi, viewModelStore: ViewModelStore, lifecycleScope: LifecycleCoroutineScope) {
+        Logger.d("ProductWidget: bindData $initialData")
+        ProductWidgetConfigurator().configure(this, viewModelStore, lifecycleScope, initialData)
+        bindInternal()
     }
 }

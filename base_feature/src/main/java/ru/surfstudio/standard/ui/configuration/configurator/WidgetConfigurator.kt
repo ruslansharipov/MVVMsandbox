@@ -29,17 +29,15 @@ abstract class WidgetConfigurator<T : Any> : Configurator {
     /**
      * Конфигурирует виджет
      */
-    fun <W> configure(widget: W, args: T) where W : InjectionTarget, W : View {
+    fun <W> configure(
+            widget: W,
+            viewModelStore: ViewModelStore,
+            lifecycleScope: LifecycleCoroutineScope,
+            args: T
+    ) where W : InjectionTarget, W : View {
         val activity = widget.context.findActivity()
         requireNotNull(activity)
 
-        val (viewModelStore, lifecycleScope) = try {
-            val fragment = widget.findFragment<Fragment>()
-            fragment.viewModelStore to fragment.lifecycleScope
-        } catch (e: Throwable) {
-            val appCompatActivity = activity as AppCompatActivity
-            appCompatActivity.viewModelStore to appCompatActivity.lifecycleScope
-        }
         val activityComponent = createActivityComponent(activity)
         val screenComponent = createWidgetComponent(activityComponent, viewModelStore, lifecycleScope, args)
         resolveDependencies(widget, screenComponent)
