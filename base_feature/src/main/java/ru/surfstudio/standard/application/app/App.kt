@@ -1,14 +1,17 @@
 package ru.surfstudio.standard.application.app
 
 import android.app.Application
+import ru.surfstudio.android.activity.holder.ActiveActivityHolder
 import ru.surfstudio.android.logger.Logger
 import ru.surfstudio.android.navigation.animation.DefaultAnimations
 import ru.surfstudio.android.navigation.animation.resource.EmptyResourceAnimations
-import ru.surfstudio.android.navigation.provider.callbacks.ActivityNavigationProviderCallbacks
+import ru.surfstudio.android.template.base_feature.R
+import ru.surfstudio.android.utilktx.ktx.ui.activity.ActivityLifecycleListener
 import ru.surfstudio.standard.application.app.di.AppComponent
 import ru.surfstudio.standard.application.app.di.AppModule
 import ru.surfstudio.standard.application.app.di.DaggerAppComponent
 import ru.surfstudio.standard.application.logger.strategies.local.TimberLoggingStrategy
+import ru.surfstudio.standard.f_debug.injector.DebugAppInjector
 import ru.surfstudio.standard.ui.animation.SlideAnimations
 
 class App : Application() {
@@ -18,27 +21,27 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         appComponent = DaggerAppComponent.builder()
-            .appModule(AppModule(this))
-            .build()
+                .appModule(AppModule(this))
+                .build()
 
         initLogger()
-        initLogCallbacks()
-        initDiCallbacks()
-        initNavigationCallbacks()
         initDefaultAnimations()
+        registerLogCallbacks()
+        registerDiCallbacks()
+        registerNavigationCallbacks()
+
+        initDebugScreen()
     }
 
-    private fun initLogCallbacks() {
+    private fun registerLogCallbacks() {
         registerActivityLifecycleCallbacks(appComponent.logLifecycleCallbacks())
     }
 
-    private fun initNavigationCallbacks() {
-        registerActivityLifecycleCallbacks(
-                appComponent.activityNavigationProvider() as ActivityNavigationProviderCallbacks
-        )
+    private fun registerNavigationCallbacks() {
+        registerActivityLifecycleCallbacks(appComponent.activityNavigationProvider())
     }
 
-    private fun initDiCallbacks() {
+    private fun registerDiCallbacks() {
         registerActivityLifecycleCallbacks(appComponent.diCallbacks())
     }
 
@@ -50,5 +53,21 @@ class App : Application() {
         DefaultAnimations.fragment = SlideAnimations
         DefaultAnimations.activity = SlideAnimations
         DefaultAnimations.tab = EmptyResourceAnimations
+    }
+
+    private fun initDebugScreen() {
+        val activeActivityHolder = ActiveActivityHolder()
+        registerActivityLifecycleCallbacks(
+                ActivityLifecycleListener(
+                        onActivityResumed = { activity ->
+                            activeActivityHolder.activity = activity
+                        },
+                        onActivityPaused = {
+                            activeActivityHolder.clearActivity()
+                        }
+                )
+        )
+        DebugAppInjector.initInjector(this, activeActivityHolder)
+        DebugAppInjector.debugInteractor.onCreateApp(R.mipmap.ic_launcher)
     }
 }
