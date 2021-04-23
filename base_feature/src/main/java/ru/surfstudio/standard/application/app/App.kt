@@ -11,7 +11,6 @@ import ru.surfstudio.standard.application.app.di.AppComponent
 import ru.surfstudio.standard.application.app.di.AppModule
 import ru.surfstudio.standard.application.app.di.DaggerAppComponent
 import ru.surfstudio.standard.application.logger.strategies.local.TimberLoggingStrategy
-import ru.surfstudio.standard.f_debug.injector.DebugAppInjector
 import ru.surfstudio.standard.ui.animation.SlideAnimations
 
 class App : Application() {
@@ -67,7 +66,5 @@ class App : Application() {
                         }
                 )
         )
-        DebugAppInjector.initInjector(this, activeActivityHolder)
-        DebugAppInjector.debugInteractor.onCreateApp(R.mipmap.ic_launcher)
     }
 }

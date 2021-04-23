@@ -5,18 +5,20 @@ apply from: '../unitTestConfiguration.gradle'
 dependencies {
     api project(":base")
 
-    //debug
-    releaseImplementation project(":f-debug-no-op")
-    debugImplementation project(":f-debug")
-    qaImplementation project(":f-debug")
-
     implementation project(":i-network")
     implementation project(":i-token")
-    implementation project(":i-initialization")
 
     api(firebase.crashlytics) {
         transitive = true
     }
+    api surf.activityHolder
+    api surf.easyAdapter
+    api surf.easyAdapterPagination
+    api surf.navigation
+    api surf.navigationRx
+    api surf.mvpBinding
+    api surf.recyclerExtensions
+    api surf.mviMapper
 
     implementation debug.anrWatchDog
     implementation debug.timber

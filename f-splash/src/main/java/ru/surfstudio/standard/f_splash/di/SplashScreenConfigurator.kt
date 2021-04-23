@@ -9,7 +9,7 @@ import dagger.Provides
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.standard.f_splash.ISplashViewModel
 import ru.surfstudio.standard.f_splash.SplashActivityView
-import ru.surfstudio.standard.f_splash.SplashRoute
+import ru.surfstudio.standard.ui.navigation.SplashRoute
 import ru.surfstudio.standard.f_splash.SplashViewModel
 import ru.surfstudio.standard.ui.activity.di.ActivityComponent
 import ru.surfstudio.standard.ui.configuration.configurator.ActivityConfigurator

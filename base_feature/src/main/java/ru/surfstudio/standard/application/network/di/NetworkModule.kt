@@ -15,7 +15,6 @@ import ru.surfstudio.standard.i_network.converter.gson.SafeConverterFactory
 import ru.surfstudio.android.dagger.scope.PerApplication
 import ru.surfstudio.android.logger.Logger
 import ru.surfstudio.android.template.base_feature.BuildConfig
-import ru.surfstudio.standard.f_debug.injector.DebugAppInjector
 import ru.surfstudio.standard.i_network.network.BaseUrl
 import ru.surfstudio.standard.i_network.BASE_API_URL
 import ru.surfstudio.standard.i_network.TEST_API_URL
@@ -89,10 +88,6 @@ class NetworkModule {
     @Provides
     @PerApplication
     internal fun provideBaseUrl(): BaseUrl {
-        return if (DebugAppInjector.debugInteractor.isTestServerEnabled) {
-            BaseUrl(TEST_API_URL, null)
-        } else {
-            BaseUrl(BASE_API_URL, null)
-        }
+        return BaseUrl(TEST_API_URL, null)
     }
 }

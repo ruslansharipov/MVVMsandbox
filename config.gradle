@@ -58,9 +58,38 @@ ext {
             rxJava2DebugVersion             : '1.4.0',              //https://bit.ly/322Qzo7
             androidDebugToolsVersion        : '1.0',                //https://bit.ly/2QMKLfe
             autoServiceVersion              : '1.0-rc4',            //https://bit.ly/2WsGYH4
-            lifecycleVersion                : '2.2.0'               //https://bit.ly/36Z0Re9
+            lifecycleVersion                : '2.2.0',               //https://bit.ly/36Z0Re9
+            easyAdapterVersion              : '2.1.0-alpha.2',
+            easyAdapterPaginationVersion    : '2.1.0-alpha.2',
+            navigationVersion               : '0.5.0-alpha.9',
+            recyclerExtensionsVersion       : '0.5.0-alpha.10',
+            activityHolderVersion           : '0.5.0-alpha.3',
+            mvpBindingVersion               : '0.5.0-alpha.21',
+            mvpVersion                      : '0.5.0-alpha.17',
+            daggerScopeVersion              : '0.5.0-alpha.4',
+            loggerVersion                   : '0.5.0-alpha.6',
+            filestorageVersion              : '0.5.0-alpha.5',
+            sharedPrefVersion               : '0.5.0-alpha.7',
+            mviMapperVersion                : '0.5.0-alpha.30',
+            navigationRxVersion             : '0.5.0-alpha.9'
     ]
 
+    //                    "util-ktx"
+    surf = [
+            easyAdapter : "ru.surfstudio.android:easyadapter:${versions.easyAdapterVersion}",
+            easyAdapterPagination : "ru.surfstudio.android:easyadapter-pagination:${versions.easyAdapterPaginationVersion}",
+            navigation : "ru.surfstudio.android:navigation:${versions.navigationVersion}",
+            navigationRx : "ru.surfstudio.android:navigation-rx:${versions.navigationRxVersion}",
+            activityHolder : "ru.surfstudio.android:activity-holder:${versions.activityHolderVersion}",
+            mvpBinding : "ru.surfstudio.android:core-mvp-binding:${versions.mvpBindingVersion}",
+            mvp : "ru.surfstudio.android:core-mvp:${versions.mvpVersion}",
+            daggerScope : "ru.surfstudio.android:dagger-scope:${versions.daggerScopeVersion}",
+            logger : "ru.surfstudio.android:logger:${versions.loggerVersion}",
+            filestorage : "ru.surfstudio.android:filestorage:${versions.filestorageVersion}",
+            recyclerExtensions : "ru.surfstudio.android:recycler-extension:${versions.recyclerExtensionsVersion}",
+            sharedPref : "ru.surfstudio.android:shared-pref:${versions.sharedPrefVersion}",
+            mviMapper : "ru.surfstudio.android:mvi-mapper:${versions.mviMapperVersion}"
+    ]
 
     lang = [
             kotlinStdLib        : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlinVersion}",
@@ -145,7 +174,7 @@ ext {
     ]
 
     architectureComponents = [
-            lifecycle: "androidx.lifecycle:lifecycle-runtime-ktx:${versions.lifecycleVersion}",
+            lifecycle                   : "androidx.lifecycle:lifecycle-runtime-ktx:${versions.lifecycleVersion}",
             lifecycleAnnotationProcessor: "androidx.lifecycle:lifecycle-common-java8:${versions.lifecycleVersion}"
     ]
 }

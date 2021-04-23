@@ -1,13 +1,12 @@
-package ru.surfstudio.standard.f_splash
+package ru.surfstudio.standard.ui.navigation
 
 import android.content.Intent
 import ru.surfstudio.android.navigation.route.activity.ActivityRoute
-import ru.surfstudio.android.notification.ui.notification.strategies.PushHandleStrategy
 
 /**
  * Маршрут сплеша
  */
-class SplashRoute(val pushHandleStrategy: PushHandleStrategy<*>? = null) : ActivityRoute() {
+class SplashRoute() : ActivityRoute() {
 
     constructor(intent: Intent): this()
 

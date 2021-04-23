@@ -3,7 +3,6 @@ package ru.surfstudio.standard.application.app.di
 import android.content.Context
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import ru.surfstudio.android.navigation.observer.ScreenResultObserver
-import ru.surfstudio.standard.i_initialization.InitializeAppInteractor
 import ru.surfstudio.standard.i_network.network.interactor.ConnectionChecker
 
 /**
@@ -17,7 +16,5 @@ interface AppProxyDependencies {
     fun screenResultObserver(): ScreenResultObserver
     fun commandExecutor(): AppCommandExecutor
     fun connectionChecker(): ConnectionChecker
-
-    fun initializeAppInteractor(): InitializeAppInteractor
 
 }

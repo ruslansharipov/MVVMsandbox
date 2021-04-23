@@ -5,7 +5,6 @@ import ru.surfstudio.android.dagger.scope.PerApplication
 import ru.surfstudio.android.navigation.provider.callbacks.ActivityNavigationProviderCallbacks
 import ru.surfstudio.standard.application.app.callbacks.di.DiActivityCallbacks
 import ru.surfstudio.standard.application.app.callbacks.log.LifecycleLogActivityCallbacks
-import ru.surfstudio.standard.application.migration.di.MigrationModule
 import ru.surfstudio.standard.application.navigation.di.NavigationModule
 import ru.surfstudio.standard.application.network.di.NetworkModule
 import ru.surfstudio.standard.application.network.di.OkHttpModule
@@ -18,7 +17,6 @@ import ru.surfstudio.standard.application.storage.di.SharedPrefModule
                 NavigationModule::class,
                 NetworkModule::class,
                 OkHttpModule::class,
-                MigrationModule::class,
                 SharedPrefModule::class
 // TODO добавить недостающие модули
         ]

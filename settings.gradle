@@ -4,21 +4,12 @@ include ":app",
         ":base",
         ":domain",
         ":base_feature",
-        ":i-initialization",
         ":i-network",
-//        ":i-session",
         ":i-token",
-//        ":i-auth",
         ":i-push-notification",
-//        ":f-auth",
         ":f-main",
-        ":f-debug",
         ":f-splash",
         ":f-debug-no-op"
-//        ':f-feed',
-//        ':f-search',
-//        ':f-profile',
-//        ":small-test-utils"
 
 apply from: 'android-standard/androidStandardSettings.gradle'
 apply from: 'buildCache.gradle'
