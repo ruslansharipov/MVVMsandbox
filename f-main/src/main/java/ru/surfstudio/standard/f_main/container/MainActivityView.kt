@@ -4,8 +4,6 @@ import android.os.Bundle
 import ru.surfstudio.android.navigation.provider.container.FragmentNavigationContainer
 import ru.surfstudio.standard.f_main.R
 import ru.surfstudio.standard.f_main.container.di.MainScreenConfigurator
-import ru.surfstudio.standard.f_main.widget.ProductWidget
-import ru.surfstudio.standard.f_main.widget.data.ProductUi
 import ru.surfstudio.standard.ui.configuration.configurator.ActivityConfigurator
 import ru.surfstudio.standard.ui.mvvm.view.BaseMVVMActivityView
 import javax.inject.Inject

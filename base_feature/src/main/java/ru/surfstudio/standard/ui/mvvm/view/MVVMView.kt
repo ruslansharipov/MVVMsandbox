@@ -2,16 +2,9 @@ package ru.surfstudio.standard.ui.mvvm.view
 
 import ru.surfstudio.standard.ui.configuration.HasName
 import ru.surfstudio.standard.ui.configuration.InjectionTarget
-import ru.surfstudio.standard.ui.lifecycle.FlowObserver
-import ru.surfstudio.standard.ui.lifecycle.LifecycleFlowObserver
 
 /**
  * Интерфейс вью для работы с вьюмоделью, расширяющий необходимые интерфейсы для организации
  * внедрения зависимостей и подписок на потоки данных
  */
-interface MVVMView : FlowObserver, InjectionTarget
-
-/**
- * MVVMView с жизненным циклом
- */
-interface LifecycleMVVMView : MVVMView, LifecycleFlowObserver, HasName
+interface MVVMView : FlowBinder, InjectionTarget, HasName

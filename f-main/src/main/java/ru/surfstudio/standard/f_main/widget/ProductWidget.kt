@@ -11,9 +11,8 @@ import kotlinx.coroutines.Job
 import ru.surfstudio.android.logger.Logger
 import ru.surfstudio.standard.f_main.R
 import ru.surfstudio.standard.f_main.widget.data.ProductUi
-import ru.surfstudio.standard.ui.configuration.InjectionTarget
-import ru.surfstudio.standard.ui.lifecycle.FlowObserver
 import ru.surfstudio.standard.f_main.widget.di.ProductWidgetConfigurator
+import ru.surfstudio.standard.ui.mvvm.view.MVVMView
 import javax.inject.Inject
 
 /**
@@ -21,10 +20,12 @@ import javax.inject.Inject
  */
 class ProductWidget @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr), FlowObserver, InjectionTarget {
+) : FrameLayout(context, attrs, defStyleAttr), MVVMView {
 
     @Inject
     override lateinit var coroutineScope: LifecycleCoroutineScope
+
+    override val name: String = "ProductWidget"
 
     @Inject
     lateinit var viewModel: ProductViewModel
@@ -48,7 +49,7 @@ class ProductWidget @JvmOverloads constructor(
         }
         toastsJob?.cancel()
         toastsJob = viewModel.toasts.bindTo { toast ->
-            Toast.makeText(context, toast, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, toast, Toast.LENGTH_SHORT).show()
         }
     }
 

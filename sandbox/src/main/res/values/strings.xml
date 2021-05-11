@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">MVVM sandbox</string>
-
-    <string name="error_no_internet">Нет интернета</string>
-    <string name="error_other">Возникла ошибка</string>
-    <string name="retry_btn">Повторить</string>
-</resources>
