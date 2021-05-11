@@ -12,18 +12,24 @@ import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * Интерфейс, предоставляющий удобные методы для подписки на флоу и каналы [Flow.bindTo] и [Channel.bindTo]
- * Подписки совершаются в рамках [coroutineScope].
+ * Подписки совершаются в рамках [coroutineScope] и [coroutineContext].
  * Классы-наследники должны очищать подписки в соответствющих методах жизненного цикла.
+ *
+ * Переопределение [coroutineContext] может потребоваться например в виджетах, чтобы у каждого виджета
+ * был свой контекст, при помощи которого можно было бы отписываться от ранее созданых подписок этого
+ * виджета, при этом не отменяя остальных подписок, созданных в родительском [coroutineScope].
+ * Либо если для создания всех подписок требуется какой-то особых контекст.
  */
 interface FlowBinder {
 
     val coroutineScope: CoroutineScope
+    val coroutineContext: CoroutineContext get() = EmptyCoroutineContext
 
     /**
      * Общий метод, используемый для подписок на флоу и каналы
      */
-    fun <T> subscribe(flow: Flow<T>, context: CoroutineContext, action: suspend (T) -> Unit): Job {
-        return coroutineScope.launch(context) {
+    fun <T> subscribe(flow: Flow<T>, action: suspend (T) -> Unit): Job {
+        return coroutineScope.launch(coroutineContext) {
             flow.collect { data: T ->
                 action(data)
             }
@@ -36,8 +42,8 @@ interface FlowBinder {
      * @param action функция вызываемая на каждый эмит данных
      * @return [Job] позволяющий контролировать флоу и отписываться при необходимости
      */
-    fun <T> Flow<T>.bindTo(context: CoroutineContext = EmptyCoroutineContext, action: suspend (T) -> Unit): Job {
-        return subscribe(this, context, action)
+    fun <T> Flow<T>.bindTo(action: suspend (T) -> Unit): Job {
+        return subscribe(this, action)
     }
 
     /**
@@ -46,7 +52,7 @@ interface FlowBinder {
      * @param action функция вызываемая на каждый эмит данных
      * @return [Job] позволяющий контролировать флоу и отписываться при необходимости
      */
-    fun <T> Channel<T>.bindTo(context: CoroutineContext = EmptyCoroutineContext, action: suspend (T) -> Unit): Job {
-        return subscribe(this.receiveAsFlow(), context, action)
+    fun <T> Channel<T>.bindTo(action: suspend (T) -> Unit): Job {
+        return subscribe(this.receiveAsFlow(), action)
     }
 }

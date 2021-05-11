@@ -7,13 +7,14 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.*
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import ru.surfstudio.android.logger.Logger
 import ru.surfstudio.standard.f_main.R
 import ru.surfstudio.standard.f_main.widget.data.ProductUi
 import ru.surfstudio.standard.f_main.widget.di.ProductWidgetConfigurator
 import ru.surfstudio.standard.ui.mvvm.view.MVVMView
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Пример виджета с вьюмоделью
@@ -23,15 +24,14 @@ class ProductWidget @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr), MVVMView {
 
     @Inject
-    override lateinit var coroutineScope: LifecycleCoroutineScope
-
-    override val name: String = "ProductWidget"
-
-    @Inject
     lateinit var viewModel: ProductViewModel
 
-    private var productJob: Job? = null
-    private var toastsJob: Job? = null
+    @Inject
+    override lateinit var coroutineScope: LifecycleCoroutineScope
+
+    override val coroutineContext: CoroutineContext = Dispatchers.Main + SupervisorJob()
+
+    override val name: String = "ProductWidget"
 
     private val priceTv: TextView
 
@@ -43,12 +43,11 @@ class ProductWidget @JvmOverloads constructor(
     }
 
     private fun bindInternal() {
-        productJob?.cancel()
-        productJob = viewModel.productState.bindTo { product: ProductUi ->
+        coroutineContext.cancelChildren()
+        viewModel.productState.bindTo { product: ProductUi ->
             priceTv.text = product.price.toString()
         }
-        toastsJob?.cancel()
-        toastsJob = viewModel.toasts.bindTo { toast ->
+        viewModel.toasts.bindTo { toast ->
 //            Toast.makeText(context, toast, Toast.LENGTH_SHORT).show()
         }
     }
